@@ -3,493 +3,659 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#120b18">
+<meta name="theme-color" content="#08050b">
 
-<title>Para Emily ❤️</title>
+<title>Erik ❤️ Emilly</title>
 
-<!-- MAPA REAL -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-  background:
-    radial-gradient(circle at 20% 10%, #3c173f 0%, transparent 30%),
-    radial-gradient(circle at 80% 30%, #251039 0%, transparent 35%),
-    linear-gradient(135deg,#08060b,#160c19,#0a070d);
-  color:#fff;
-  font-family:'Cormorant Garamond',serif;
-  min-height:100vh;
-  overflow-x:hidden;
+background:
+radial-gradient(circle at 20% 10%,#4a1642 0%,transparent 28%),
+radial-gradient(circle at 80% 40%,#29113d 0%,transparent 32%),
+linear-gradient(135deg,#050408,#100813,#08050b);
+color:white;
+font-family:'Cormorant Garamond',serif;
+overflow-x:hidden;
 }
 
-/* FUNDO */
+/* =========================
+   ESTRELAS
+========================= */
 
 #stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  overflow:hidden;
+position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none;
 }
 
 .star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  opacity:.5;
-  animation:twinkle 3s infinite ease-in-out;
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
 }
 
 @keyframes twinkle{
-  0%,100%{opacity:.15;transform:scale(.7)}
-  50%{opacity:1;transform:scale(1.5)}
+0%,100%{opacity:.15}
+50%{opacity:1;transform:scale(1.7)}
 }
+
+/* =========================
+   PARTÍCULAS
+========================= */
 
 .particle{
-  position:fixed;
-  pointer-events:none;
-  z-index:20;
-  animation:floatUp 4s ease-out forwards;
+position:fixed;
+z-index:999;
+pointer-events:none;
+animation:rise 4s ease-out forwards;
 }
 
-@keyframes floatUp{
-  from{
-    transform:translateY(0) scale(1);
-    opacity:1;
-  }
-  to{
-    transform:translateY(-250px) scale(.2) rotate(30deg);
-    opacity:0;
-  }
+@keyframes rise{
+0%{
+opacity:1;
+transform:translateY(0) scale(1) rotate(0);
+}
+100%{
+opacity:0;
+transform:translateY(-300px) scale(.2) rotate(45deg);
+}
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-  min-height:100vh;
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:30px 18px;
-  text-align:center;
+height:100vh;
+min-height:650px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
+position:relative;
+z-index:1;
 }
 
 .hero-content{
-  max-width:850px;
-  animation:heroIn 1.5s ease forwards;
+max-width:900px;
+animation:heroIn 1.5s ease;
 }
 
 @keyframes heroIn{
-  from{
-    opacity:0;
-    transform:translateY(40px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
-.small{
-  letter-spacing:5px;
-  text-transform:uppercase;
-  color:#e8a9c8;
-  font-size:13px;
-  margin-bottom:18px;
+.hero-small{
+letter-spacing:5px;
+font-size:12px;
+text-transform:uppercase;
+color:#e7a5c7;
+margin-bottom:25px;
 }
 
 .hero h1{
-  font-family:'Dancing Script',cursive;
-  font-size:clamp(55px,12vw,115px);
-  font-weight:600;
-  line-height:.9;
-  text-shadow:0 0 30px rgba(255,120,180,.35);
+font-family:'Dancing Script',cursive;
+font-size:clamp(75px,16vw,150px);
+line-height:.8;
+text-shadow:0 0 50px rgba(255,100,180,.35);
 }
 
 .hero h1 span{
-  color:#ff86bd;
+color:#ff78b5;
 }
 
-.hero-sub{
-  margin-top:28px;
-  font-size:clamp(20px,4vw,29px);
-  color:#eadce6;
+.hero p{
+margin-top:35px;
+font-size:clamp(21px,4vw,31px);
+color:#e6d8e2;
+line-height:1.4;
 }
 
-.scroll{
-  margin-top:50px;
-  animation:bounce 2s infinite;
-  color:#dca7c1;
-  font-size:15px;
+.enter{
+display:inline-block;
+margin-top:50px;
+padding:15px 28px;
+border:1px solid rgba(255,150,200,.4);
+border-radius:999px;
+color:white;
+text-decoration:none;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(10px);
+transition:.3s;
 }
 
-@keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(10px)}
+.enter:hover{
+background:#ff5fa7;
+transform:translateY(-4px);
 }
 
-/* CONTADOR */
+/* =========================
+   SEÇÕES
+========================= */
 
 .section{
-  position:relative;
-  z-index:1;
-  max-width:1050px;
-  margin:auto;
-  padding:90px 18px;
+max-width:1050px;
+margin:auto;
+padding:100px 20px;
+position:relative;
+z-index:1;
 }
 
-.section-title{
-  text-align:center;
-  font-family:'Dancing Script',cursive;
-  font-size:clamp(42px,8vw,70px);
-  color:#ff9bc7;
-  margin-bottom:12px;
+.title{
+font-family:'Dancing Script',cursive;
+text-align:center;
+font-size:clamp(45px,9vw,75px);
+color:#ff94c2;
+margin-bottom:15px;
 }
 
-.section-description{
-  text-align:center;
-  color:#cdb9c8;
-  font-size:19px;
-  margin-bottom:35px;
+.subtitle{
+text-align:center;
+color:#cbb9c7;
+font-size:20px;
+max-width:700px;
+margin:0 auto 45px;
+line-height:1.5;
 }
 
-.countdown{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  max-width:800px;
-  margin:30px auto;
+/* =========================
+   CONTADOR INICIAL
+========================= */
+
+.time-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+max-width:800px;
+margin:auto;
 }
 
-.time-box{
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,145,195,.2);
-  border-radius:22px;
-  padding:25px 10px;
-  backdrop-filter:blur(12px);
-  box-shadow:0 15px 50px rgba(0,0,0,.25);
+.time-card{
+padding:28px 10px;
+border-radius:25px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,140,190,.2);
+backdrop-filter:blur(15px);
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.time-number{
-  font-size:clamp(30px,7vw,55px);
-  font-weight:600;
-  color:#fff;
+.number{
+font-size:clamp(35px,7vw,65px);
+font-weight:600;
 }
 
-.time-label{
-  margin-top:5px;
-  color:#d4b8ca;
-  text-transform:uppercase;
-  font-size:11px;
-  letter-spacing:2px;
+.label{
+margin-top:7px;
+font-size:11px;
+letter-spacing:2px;
+color:#cdb7c8;
+text-transform:uppercase;
 }
 
-/* CARTA */
-
-.letter-wrapper{
-  perspective:1000px;
-}
+/* =========================
+   CARTA
+========================= */
 
 .letter{
-  position:relative;
-  background:
-    linear-gradient(rgba(255,248,231,.96),rgba(249,238,213,.96)),
-    repeating-linear-gradient(
-      transparent,
-      transparent 32px,
-      rgba(120,80,50,.09) 33px
-    );
-  color:#3d2730;
-  border-radius:5px;
-  padding:55px clamp(22px,7vw,75px);
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.45),
-    inset 0 0 50px rgba(112,62,38,.08);
-  transform:rotate(-.5deg);
-  overflow:hidden;
+position:relative;
+background:
+linear-gradient(
+rgba(255,249,235,.98),
+rgba(245,229,201,.98)
+);
+color:#3d2730;
+padding:60px clamp(25px,8vw,85px);
+border-radius:6px;
+box-shadow:
+0 40px 100px rgba(0,0,0,.5),
+inset 0 0 80px rgba(100,50,30,.08);
+transform:rotate(-.3deg);
 }
 
 .letter:before{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border:1px solid rgba(100,55,45,.2);
-  pointer-events:none;
+content:"";
+position:absolute;
+inset:16px;
+border:1px solid rgba(80,40,30,.2);
+pointer-events:none;
 }
 
-.letter-header{
-  text-align:center;
-  font-family:'Dancing Script',cursive;
-  font-size:38px;
-  margin-bottom:25px;
-  color:#7e3c58;
+.letter-top{
+text-align:center;
+font-family:'Dancing Script',cursive;
+font-size:38px;
+color:#7c3a56;
+margin-bottom:35px;
 }
 
-.writing-area{
-  position:relative;
-  min-height:570px;
+.letter p{
+font-family:'Dancing Script',cursive;
+font-size:clamp(23px,4vw,31px);
+line-height:1.65;
+margin-bottom:23px;
 }
 
-.letter-text{
-  font-family:'Dancing Script',cursive;
-  font-size:clamp(23px,4.2vw,31px);
-  line-height:1.65;
-  white-space:pre-wrap;
+.signature{
+font-family:'Dancing Script',cursive;
+font-size:45px;
+color:#7d3c57;
+text-align:right;
+margin-top:30px;
 }
 
-.cursor{
-  display:inline-block;
-  width:2px;
-  height:1em;
-  background:#5a3941;
-  vertical-align:middle;
-  animation:blink .7s infinite;
+/* =========================
+   FRASE DESTACADA
+========================= */
+
+.quote{
+margin:60px auto 0;
+max-width:850px;
+text-align:center;
+padding:45px 25px;
+border-radius:30px;
+background:linear-gradient(
+145deg,
+rgba(255,100,170,.10),
+rgba(255,255,255,.035)
+);
+border:1px solid rgba(255,150,200,.18);
 }
 
-@keyframes blink{
-  50%{opacity:0}
+.quote-text{
+font-family:'Dancing Script',cursive;
+font-size:clamp(31px,6vw,48px);
+color:#ffaccd;
+line-height:1.3;
 }
 
-/* LÁPIS */
-
-.pencil{
-  position:absolute;
-  width:70px;
-  height:18px;
-  opacity:0;
-  transform-origin:left center;
-  pointer-events:none;
-  z-index:5;
+.quote-author{
+margin-top:20px;
+color:#ad98aa;
 }
 
-.pencil-body{
-  position:absolute;
-  left:8px;
-  top:3px;
-  width:48px;
-  height:12px;
-  background:linear-gradient(90deg,#f3b6cb,#fff,#d997b5);
-  border-radius:3px;
-  box-shadow:0 2px 3px rgba(0,0,0,.25);
+/* =========================
+   CONTADOR PRINCIPAL
+========================= */
+
+.countdown-big{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
 }
 
-.pencil-tip{
-  position:absolute;
-  left:0;
-  top:3px;
-  width:0;
-  height:0;
-  border-top:6px solid transparent;
-  border-bottom:6px solid transparent;
-  border-right:12px solid #d9c2a5;
+.countdown-big .time-card{
+padding:35px 10px;
 }
 
-.pencil-tip:after{
-  content:"";
-  position:absolute;
-  left:8px;
-  top:-2px;
-  border-top:2px solid transparent;
-  border-bottom:2px solid transparent;
-  border-right:5px solid #332426;
+.countdown-big .number{
+color:#ff9ac5;
+text-shadow:0 0 25px rgba(255,100,180,.35);
 }
 
-.pencil-end{
-  position:absolute;
-  right:5px;
-  top:3px;
-  width:7px;
-  height:12px;
-  background:#d07e9f;
-}
+/* =========================
+   MAPA
+========================= */
 
-/* CORAÇÃO */
-
-.big-heart{
-  text-align:center;
-  font-size:55px;
-  margin-top:30px;
-  animation:heartBeat 1.4s infinite;
-}
-
-@keyframes heartBeat{
-  0%,100%{transform:scale(1)}
-  15%{transform:scale(1.18)}
-  30%{transform:scale(1)}
-  45%{transform:scale(1.12)}
-}
-
-/* MAPA */
-
-.map-card{
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,160,200,.18);
-  padding:12px;
-  border-radius:25px;
-  box-shadow:0 25px 70px rgba(0,0,0,.35);
+.map-wrapper{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,140,190,.18);
+padding:12px;
+border-radius:28px;
+box-shadow:0 30px 90px rgba(0,0,0,.4);
 }
 
 #map{
-  height:470px;
-  width:100%;
-  border-radius:18px;
-  overflow:hidden;
+height:470px;
+border-radius:20px;
+overflow:hidden;
 }
 
-.map-info{
-  padding:18px 8px 8px;
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
+.route-info{
+display:grid;
+grid-template-columns:1fr auto 1fr;
+align-items:center;
+gap:20px;
+padding:25px 10px 10px;
+text-align:center;
 }
 
-.route-item{
-  flex:1;
-  min-width:180px;
-  text-align:center;
+.place strong{
+display:block;
+font-size:24px;
+color:#ff9bc7;
 }
 
-.route-item strong{
-  display:block;
-  font-size:22px;
-  color:#ff9bc7;
+.place span{
+color:#c5b4c1;
 }
 
-.route-item span{
-  color:#cbb8c7;
+.distance{
+font-size:35px;
+color:#ff7fb7;
 }
 
-/* SURPRESA */
+/* =========================
+   LINHA DO TEMPO
+========================= */
 
-.love-card{
-  text-align:center;
-  max-width:700px;
-  margin:auto;
-  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,80,160,.04));
-  border:1px solid rgba(255,150,200,.2);
-  padding:45px 25px;
-  border-radius:30px;
-  box-shadow:0 30px 90px rgba(0,0,0,.3);
+.timeline{
+max-width:750px;
+margin:auto;
+position:relative;
+}
+
+.timeline:before{
+content:"";
+position:absolute;
+left:20px;
+top:0;
+bottom:0;
+width:2px;
+background:linear-gradient(
+#ff6cab,
+transparent
+);
+}
+
+.event{
+position:relative;
+padding-left:65px;
+margin-bottom:45px;
+}
+
+.dot{
+position:absolute;
+left:10px;
+top:5px;
+width:22px;
+height:22px;
+background:#ff67ad;
+border-radius:50%;
+box-shadow:0 0 25px #ff67ad;
+}
+
+.event h3{
+font-family:'Dancing Script',cursive;
+font-size:31px;
+color:#ff9fc6;
+}
+
+.event p{
+margin-top:8px;
+font-size:19px;
+line-height:1.5;
+color:#cdbdca;
+}
+
+/* =========================
+   POLAROIDS
+========================= */
+
+.memories{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.polaroid{
+background:#fff;
+padding:10px 10px 25px;
+color:#37272e;
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+transform:rotate(-2deg);
+transition:.4s;
+text-align:center;
+}
+
+.polaroid:nth-child(2){
+transform:rotate(2deg);
+}
+
+.polaroid:nth-child(3){
+transform:rotate(-1deg);
+}
+
+.polaroid:hover{
+transform:rotate(0) translateY(-10px) scale(1.03);
+}
+
+.polaroid .fake-photo{
+height:190px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+background:
+linear-gradient(135deg,#291229,#9d426f);
+}
+
+.polaroid p{
+font-family:'Dancing Script',cursive;
+font-size:25px;
+margin-top:13px;
+}
+
+/* =========================
+   MÚSICA
+========================= */
+
+.music-card{
+max-width:650px;
+margin:auto;
+padding:35px;
+border-radius:30px;
+background:
+linear-gradient(
+145deg,
+rgba(255,100,170,.12),
+rgba(255,255,255,.04)
+);
+border:1px solid rgba(255,150,200,.2);
+text-align:center;
+}
+
+.music-disc{
+width:120px;
+height:120px;
+border-radius:50%;
+margin:0 auto 25px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:45px;
+background:
+radial-gradient(circle,#ffbad6 0 12%,#812b58 13% 20%,#180b18 21% 100%);
+box-shadow:0 0 50px rgba(255,90,170,.25);
+}
+
+.music-name{
+font-family:'Dancing Script',cursive;
+font-size:35px;
+color:#ff9bc6;
+}
+
+.music-info{
+color:#c4b3c0;
+margin:8px 0 25px;
+}
+
+.music-button{
+display:inline-block;
+text-decoration:none;
+color:white;
+background:#ff5b9f;
+padding:14px 25px;
+border-radius:999px;
+font-weight:600;
+transition:.3s;
+}
+
+.music-button:hover{
+transform:scale(1.05);
+background:#e9458b;
+}
+
+/* =========================
+   CADEADO
+========================= */
+
+.secret{
+text-align:center;
+max-width:700px;
+margin:auto;
+padding:55px 25px;
+border-radius:35px;
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.06),
+rgba(255,80,160,.06)
+);
+border:1px solid rgba(255,150,200,.2);
 }
 
 .lock{
-  font-size:75px;
-  margin-bottom:20px;
-  transition:.5s;
+font-size:85px;
+transition:.6s;
 }
 
 .lock.open{
-  transform:rotate(-15deg) scale(1.2);
+transform:scale(1.2) rotate(-10deg);
 }
 
-.surprise-text{
-  font-family:'Dancing Script',cursive;
-  font-size:31px;
-  color:#ffb0d0;
-  margin-bottom:25px;
+.secret h3{
+font-family:'Dancing Script',cursive;
+font-size:38px;
+color:#ff9fc7;
+margin:20px 0;
 }
 
-button{
-  border:0;
-  padding:14px 23px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#ff5fa7,#c93e79);
-  color:white;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 10px 30px rgba(255,70,150,.25);
-  transition:.25s;
+.secret p{
+font-size:19px;
+color:#cbbbc7;
+line-height:1.5;
 }
 
-button:hover{
-  transform:translateY(-3px) scale(1.03);
+.secret button{
+margin-top:25px;
+border:0;
+padding:15px 28px;
+border-radius:999px;
+background:#ff5c9f;
+color:white;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
 }
 
-#surprise{
-  display:none;
-  margin-top:30px;
-  font-family:'Dancing Script',cursive;
-  font-size:27px;
-  line-height:1.5;
-  color:#ffe4ef;
+.secret-message{
+display:none;
+margin-top:30px;
+font-family:'Dancing Script',cursive;
+font-size:29px;
+line-height:1.5;
+color:#ffd7e8;
 }
 
-/* MÚSICA */
-
-.music{
-  position:fixed;
-  right:16px;
-  bottom:16px;
-  z-index:100;
-}
-
-.music button{
-  width:58px;
-  height:58px;
-  padding:0;
-  border-radius:50%;
-  font-size:23px;
-}
-
-/* FINAL */
+/* =========================
+   FINAL
+========================= */
 
 .final{
-  text-align:center;
-  padding:100px 20px 60px;
+padding:130px 20px 70px;
+text-align:center;
+position:relative;
+z-index:1;
+}
+
+.final h2{
+font-family:'Dancing Script',cursive;
+font-size:clamp(55px,11vw,100px);
+color:#ff8fbe;
 }
 
 .final p{
-  color:#cbb8c7;
-  font-size:17px;
+margin-top:20px;
+color:#bba9b7;
+font-size:18px;
 }
 
-.final-name{
-  font-family:'Dancing Script',cursive;
-  font-size:55px;
-  color:#ff91c1;
-  margin-top:15px;
+.names{
+font-family:'Dancing Script',cursive;
+font-size:42px;
+color:#ffb0d0;
+margin-top:35px;
 }
 
-/* RESPONSIVO */
+/* =========================
+   RESPONSIVO
+========================= */
 
-@media(max-width:650px){
-  .countdown{
-    grid-template-columns:repeat(2,1fr);
-  }
+@media(max-width:700px){
 
-  #map{
-    height:380px;
-  }
-
-  .letter{
-    padding:45px 25px;
-  }
-
-  .letter-text{
-    font-size:24px;
-  }
+.time-grid,
+.countdown-big{
+grid-template-columns:repeat(2,1fr);
 }
+
+.memories{
+grid-template-columns:1fr;
+max-width:320px;
+margin:auto;
+}
+
+.route-info{
+grid-template-columns:1fr;
+}
+
+.distance{
+transform:rotate(90deg);
+}
+
+#map{
+height:380px;
+}
+
+.letter{
+padding:45px 25px;
+}
+
+}
+
 </style>
 </head>
 
@@ -497,283 +663,571 @@ button:hover{
 
 <div id="stars"></div>
 
-<!-- HERO -->
+
+<!-- =========================
+     ABERTURA
+========================= -->
+
 <section class="hero">
 
-  <div class="hero-content">
-
-    <div class="small">uma história que começou há pouco tempo</div>
-
-    <h1>Emily <span>♥</span></h1>
-
-    <p class="hero-sub">
-      Algumas pessoas chegam devagar...<br>
-      e, quando a gente percebe, já se tornaram especiais.
-    </p>
-
-    <div class="scroll">
-      ↓ desce devagar... eu preparei isso pra você ↓
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CONTAGEM DO TEMPO CONVERSANDO -->
-<section class="section">
-
-  <h2 class="section-title">Desde que nossas conversas começaram...</h2>
-
-  <p class="section-description">
-    Já se passaram exatamente <strong>5 dias e 16 horas</strong>.
-    E olha o tanto que você já conseguiu significar pra mim.
-  </p>
-
-  <div class="countdown">
-
-    <div class="time-box">
-      <div class="time-number">5</div>
-      <div class="time-label">Dias</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number">16</div>
-      <div class="time-label">Horas</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number">00</div>
-      <div class="time-label">Minutos</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number">00</div>
-      <div class="time-label">Segundos</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CARTA -->
-<section class="section">
-
-  <h2 class="section-title">Uma carta para você</h2>
-
-  <p class="section-description">
-    Espere alguns segundos... alguém está escrevendo.
-  </p>
-
-  <div class="letter-wrapper">
-
-    <div class="letter">
-
-      <div class="letter-header">
-        Para Emily, com carinho — Erik
-      </div>
-
-      <div class="writing-area">
-
-        <div class="pencil" id="pencil">
-          <div class="pencil-tip"></div>
-          <div class="pencil-body"></div>
-          <div class="pencil-end"></div>
-        </div>
-
-        <div id="letterText" class="letter-text"></div>
-
-      </div>
-
-      <div class="big-heart">♥</div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CONTAGEM REGRESSIVA -->
-<section class="section">
-
-  <h2 class="section-title">Até o nosso primeiro encontro</h2>
-
-  <p class="section-description">
-    Um dia que eu já estou contando antes mesmo de chegar.
-  </p>
-
-  <div class="countdown" id="realCountdown">
-
-    <div class="time-box">
-      <div class="time-number" id="days">--</div>
-      <div class="time-label">Dias</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number" id="hours">--</div>
-      <div class="time-label">Horas</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number" id="minutes">--</div>
-      <div class="time-label">Minutos</div>
-    </div>
-
-    <div class="time-box">
-      <div class="time-number" id="seconds">--</div>
-      <div class="time-label">Segundos</div>
-    </div>
-
-  </div>
-
-  <p style="
-    text-align:center;
-    color:#e8bfd2;
-    font-size:21px;
-    margin-top:25px;
-  ">
-    📍 Guarulhos, SP → Santa Catarina
-  </p>
-
-</section>
-
-
-<!-- MAPA -->
-<section class="section">
-
-  <h2 class="section-title">Dois lugares. Um encontro.</h2>
-
-  <p class="section-description">
-    Porque distância é só distância quando existe vontade de chegar.
-  </p>
-
-  <div class="map-card">
-
-    <div id="map"></div>
-
-    <div class="map-info">
-
-      <div class="route-item">
-        <strong>📍 Guarulhos</strong>
-        <span>São Paulo</span>
-      </div>
-
-      <div class="route-item">
-        <strong>♥</strong>
-        <span>~710 km de estrada</span>
-      </div>
-
-      <div class="route-item">
-        <strong>📍 Florianópolis</strong>
-        <span>Santa Catarina</span>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- SURPRESA -->
-<section class="section">
-
-  <h2 class="section-title">Tem mais uma coisa...</h2>
-
-  <div class="love-card">
-
-    <div class="lock" id="lock">
-      🔒
-    </div>
-
-    <div class="surprise-text">
-      Essa surpresa está reservada para ser entregue pessoalmente.
-    </div>
-
-    <button onclick="openSurprise()">
-      🔐 Abrir a surpresa
-    </button>
-
-    <div id="surprise">
-      <p>
-        Emily...
-      </p>
-
-      <br>
-
-      <p>
-        Talvez você ainda não tenha ideia do quanto esses poucos dias
-        mudaram meus pensamentos.
-      </p>
-
-      <br>
-
-      <p>
-        E talvez seja justamente isso que torna tudo tão bonito.
-      </p>
-
-      <br>
-
-      <p>
-        Eu não quero prometer que tudo será perfeito.
-        Quero apenas prometer que, se você quiser,
-        eu vou tentar fazer dar certo.
-      </p>
-
-      <br>
-
-      <p>
-        Mesmo com a distância.
-        Mesmo com os dias difíceis.
-        Mesmo quando bater saudade.
-      </p>
-
-      <br>
-
-      <p style="color:#ff9bc7;font-size:34px;">
-        Eu quero viver isso com você. ❤️
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FINAL -->
-<section class="final">
-
-  <p>
-    Feito especialmente para uma pessoa que chegou há pouco tempo...
-    mas já ocupa um lugar enorme.
-  </p>
-
-  <div class="final-name">
-    Erik ❤️ Emily
-  </div>
-
-  <p style="margin-top:25px;">
-    17 de novembro de 2026
-  </p>
-
-</section>
-
-
-<!-- BOTÃO DA MÚSICA -->
-<div class="music">
-
-  <button id="musicButton" onclick="toggleMusic()">
-    ♫
-  </button>
+<div class="hero-content">
+
+<div class="hero-small">
+Uma história que começou há apenas alguns dias
+</div>
+
+<h1>
+Emilly <span>♥</span>
+</h1>
+
+<p>
+Talvez você ainda não saiba...<br>
+mas você já se tornou uma das pessoas mais especiais para mim.
+</p>
+
+<a href="#carta" class="enter">
+Entrar na nossa história ↓
+</a>
 
 </div>
 
+</section>
 
-<!-- LEAFLET -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- =========================
+     TEMPO
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+E pensar que tudo começou agora...
+</h2>
+
+<p class="subtitle">
+Já são <strong>5 dias e 16 horas</strong> de conversas.
+Pouco tempo no calendário, mas tempo suficiente para você se tornar especial.
+</p>
+
+<div class="time-grid">
+
+<div class="time-card">
+<div class="number">05</div>
+<div class="label">Dias</div>
+</div>
+
+<div class="time-card">
+<div class="number">16</div>
+<div class="label">Horas</div>
+</div>
+
+<div class="time-card">
+<div class="number">00</div>
+<div class="label">Minutos</div>
+</div>
+
+<div class="time-card">
+<div class="number">❤️</div>
+<div class="label">Sentimento</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CARTA
+========================= -->
+
+<section class="section" id="carta">
+
+<h2 class="title">
+Uma carta para Emilly
+</h2>
+
+<p class="subtitle">
+Essa parte não precisa de nenhuma animação.
+Só precisa ser verdadeira.
+</p>
+
+<div class="letter">
+
+<div class="letter-top">
+Para Emilly, ❤️
+</div>
+
+<p>
+Emilly,
+</p>
+
+<p>
+Eu não sei se existe um jeito perfeito de escrever tudo o que estou sentindo,
+mas eu sei que não queria deixar passar a oportunidade de registrar isso.
+</p>
+
+<p>
+Faz apenas 5 dias e 16 horas que nossas conversas começaram.
+É pouco tempo para muita coisa, eu sei.
+Mas, de alguma forma, você conseguiu se tornar uma pessoa muito especial para mim.
+</p>
+
+<p>
+Em poucos dias eu comecei a gostar das nossas conversas,
+a esperar pelas suas mensagens e a imaginar como vai ser quando finalmente estivermos frente a frente.
+</p>
+
+<p>
+E talvez essa seja uma das partes mais bonitas:
+a gente ainda está no começo.
+Ainda existe muita coisa para conhecer,
+muita conversa para ter,
+muita risada para dividir
+e muitos momentos que ainda nem aconteceram.
+</p>
+
+<p>
+Daqui a pouco, aquilo que hoje parece distante vai acontecer.
+Nós vamos nos ver pela primeira vez.
+Sem uma tela no meio.
+Sem precisar imaginar.
+Você vai estar ali.
+E eu vou estar ali também.
+</p>
+
+<p>
+Eu sei que existe uma distância enorme entre Guarulhos e Santa Catarina.
+Mas eu não quero que quilômetros sejam capazes de decidir o que pode acontecer entre nós.
+</p>
+
+<p>
+Se depender de mim,
+eu quero tentar fazer dar certo.
+Quero enfrentar a distância,
+a saudade,
+os dias difíceis
+e tudo aquilo que aparecer no caminho.
+</p>
+
+<p>
+Eu não quero prometer que tudo vai ser perfeito.
+Quero prometer algo melhor:
+que, se nós dois quisermos,
+eu vou valorizar o que estamos construindo.
+</p>
+
+<p>
+Você chegou há poucos dias,
+mas já conseguiu deixar meus dias diferentes.
+E isso é algo que eu não quero ignorar.
+</p>
+
+<p>
+Então guarda isso:
+eu estou contando os dias para te ver.
+Estou curioso para descobrir como vai ser aquele primeiro momento.
+E, acima de tudo,
+estou feliz por ter encontrado você.
+</p>
+
+<p>
+Talvez daqui a algum tempo a gente olhe para esse site e ria de como tudo começou.
+Talvez ele vire uma lembrança de uma história muito maior.
+</p>
+
+<p>
+Mas hoje,
+nesse exato momento,
+eu só quero que você saiba uma coisa:
+</p>
+
+<p style="text-align:center;color:#8d3c5e;font-size:36px;">
+Eu quero que dê certo com você. ❤️
+</p>
+
+<div class="signature">
+Erik
+</div>
+
+</div>
+
+<div class="quote">
+
+<div class="quote-text">
+“Distância nenhuma parece tão grande quando existe vontade de chegar.”
+</div>
+
+<div class="quote-author">
+— Erik para Emilly
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTAGEM PRINCIPAL
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+O nosso primeiro encontro
+</h2>
+
+<p class="subtitle">
+O contador vai continuar correndo até o momento em que a distância finalmente deixar de existir.
+</p>
+
+<div class="countdown-big">
+
+<div class="time-card">
+<div class="number" id="days">00</div>
+<div class="label">Dias</div>
+</div>
+
+<div class="time-card">
+<div class="number" id="hours">00</div>
+<div class="label">Horas</div>
+</div>
+
+<div class="time-card">
+<div class="number" id="minutes">00</div>
+<div class="label">Minutos</div>
+</div>
+
+<div class="time-card">
+<div class="number" id="seconds">00</div>
+<div class="label">Segundos</div>
+</div>
+
+</div>
+
+<p style="
+text-align:center;
+margin-top:30px;
+font-size:22px;
+color:#e5c5d7;
+">
+📅 17 de novembro de 2026
+</p>
+
+</section>
+
+
+<!-- =========================
+     MAPA
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+De onde eu estou até onde você está
+</h2>
+
+<p class="subtitle">
+Uma distância no mapa.
+Uma história que pode ser muito maior.
+</p>
+
+<div class="map-wrapper">
+
+<div id="map"></div>
+
+<div class="route-info">
+
+<div class="place">
+<strong>📍 Guarulhos</strong>
+<span>São Paulo</span>
+</div>
+
+<div class="distance">
+♥
+</div>
+
+<div class="place">
+<strong>📍 Santa Catarina</strong>
+<span>Florianópolis</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     LINHA DO TEMPO
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+Nossa pequena história
+</h2>
+
+<p class="subtitle">
+E talvez isso seja só o primeiro capítulo.
+</p>
+
+<div class="timeline">
+
+<div class="event">
+
+<div class="dot"></div>
+
+<h3>O começo</h3>
+
+<p>
+Duas pessoas começaram a conversar sem saber exatamente onde aquilo iria chegar.
+</p>
+
+</div>
+
+<div class="event">
+
+<div class="dot"></div>
+
+<h3>5 dias e 16 horas</h3>
+
+<p>
+Pouco tempo passou, mas Emilly já deixou de ser apenas uma conversa qualquer.
+</p>
+
+</div>
+
+<div class="event">
+
+<div class="dot"></div>
+
+<h3>A contagem começou</h3>
+
+<p>
+Agora existe uma data esperando por nós: o nosso primeiro encontro.
+</p>
+
+</div>
+
+<div class="event">
+
+<div class="dot"></div>
+
+<h3>17 de novembro</h3>
+
+<p>
+O dia em que finalmente vamos descobrir como é estar frente a frente.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MOMENTOS
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+Coisas que ainda vamos viver
+</h2>
+
+<div class="memories">
+
+<div class="polaroid">
+
+<div class="fake-photo">
+💬
+</div>
+
+<p>
+Nossas conversas
+</p>
+
+</div>
+
+<div class="polaroid">
+
+<div class="fake-photo">
+❤️
+</div>
+
+<p>
+Nosso primeiro encontro
+</p>
+
+</div>
+
+<div class="polaroid">
+
+<div class="fake-photo">
+✨
+</div>
+
+<p>
+Tudo que ainda vem
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     MÚSICA
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+A música dessa história
+</h2>
+
+<p class="subtitle">
+Essa é a música que você escolheu para representar esse momento.
+</p>
+
+<div class="music-card">
+
+<div class="music-disc">
+🎵
+</div>
+
+<div class="music-name">
+Samaritano
+</div>
+
+<div class="music-info">
+MC Hariel
+</div>
+
+<a
+class="music-button"
+href="https://www.youtube.com/watch?v=JQRw4whdseQ"
+target="_blank"
+rel="noopener"
+>
+▶ Tocar “Samaritano”
+</a>
+
+<p style="
+margin-top:18px;
+font-size:14px;
+color:#8f7d8b;
+">
+A música abre no YouTube para respeitar os direitos da faixa.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SURPRESA
+========================= -->
+
+<section class="section">
+
+<h2 class="title">
+Ainda não acabou...
+</h2>
+
+<div class="secret">
+
+<div
+class="lock"
+id="lock"
+>
+🔒
+</div>
+
+<h3>
+Tem uma surpresa esperando por você.
+</h3>
+
+<p>
+Mas algumas coisas são melhores quando são entregues pessoalmente.
+</p>
+
+<button
+onclick="openSecret()"
+>
+🔐 Tentar abrir
+</button>
+
+<div
+class="secret-message"
+id="secretMessage"
+>
+
+Emilly...
+
+<br><br>
+
+Essa parte eu não vou colocar inteira aqui.
+
+<br>
+
+Porque existe uma coisa que eu quero te falar olhando nos seus olhos.
+
+<br><br>
+
+Então guarda essa curiosidade.
+
+<br>
+
+A resposta está esperando pelo nosso encontro.
+
+<br><br>
+
+<span style="color:#ff8fbd;">
+17/11/2026 ❤️
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="final">
+
+<h2>
+Até lá, Emilly...
+</h2>
+
+<p>
+Que essa contagem termine apenas para começar uma história ainda maior.
+</p>
+
+<div class="names">
+Erik ❤️ Emilly
+</div>
+
+<p>
+Guarulhos → Santa Catarina
+</p>
+
+</section>
+
+
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
 
 <script>
 
@@ -781,379 +1235,280 @@ button:hover{
    ESTRELAS
 ========================= */
 
-const stars = document.getElementById("stars");
+const stars =
+document.getElementById("stars");
 
-for(let i=0;i<130;i++){
+for(let i=0;i<150;i++){
 
-  const star=document.createElement("div");
+const star =
+document.createElement("div");
 
-  star.className="star";
+star.className="star";
 
-  star.style.left=Math.random()*100+"%";
-  star.style.top=Math.random()*100+"%";
+star.style.left =
+Math.random()*100+"%";
 
-  star.style.animationDelay=(Math.random()*4)+"s";
+star.style.top =
+Math.random()*100+"%";
 
-  stars.appendChild(star);
+star.style.animationDelay =
+Math.random()*4+"s";
+
+stars.appendChild(star);
+
 }
 
 
 /* =========================
-   CARTA SENDO ESCRITA
+   CONTADOR
 ========================= */
 
-const letter = `Emily,
-
-Eu nem sei exatamente como começar essa carta, porque parece estranho pensar que faz só 5 dias e 16 horas que nossas conversas começaram.
-
-Cinco dias.
-
-Pouco tempo para algumas pessoas.
-
-Mas, para mim, foi tempo suficiente para você se tornar alguém muito especial.
-
-Às vezes a gente passa meses conhecendo alguém e não sente nem metade da conexão que pode sentir em poucos dias. E foi exatamente isso que aconteceu comigo.
-
-Você chegou de um jeito inesperado e, quando percebi, já estava esperando suas mensagens, pensando em você durante o dia e imaginando como vai ser quando finalmente estivermos frente a frente.
-
-E o mais bonito de tudo é saber que daqui a pouco isso deixa de ser apenas conversa.
-
-Daqui a um mês, nós vamos nos ver pela primeira vez.
-
-De verdade.
-
-Sem tela.
-
-Sem distância.
-
-Sem precisar imaginar como seria.
-
-Eu vou poder olhar para você e finalmente conhecer pessoalmente a pessoa que, em tão pouco tempo, conseguiu ocupar um espaço tão especial dentro de mim.
-
-Eu sei que existe distância entre nós.
-
-Guarulhos de um lado.
-
-Santa Catarina do outro.
-
-Mas eu não quero que quilômetros decidam por nós.
-
-Se depender de mim, a distância nunca vai ser maior do que a vontade de fazer dar certo.
-
-Eu não sei exatamente o que o futuro reserva para nós.
-
-Não sei quantas coisas vão acontecer até aquele dia.
-
-Não sei quais dificuldades podem aparecer.
-
-Mas sei de uma coisa:
-
-Eu quero tentar.
-
-Quero conhecer você cada vez mais.
-
-Quero construir alguma coisa verdadeira.
-
-Quero poder olhar para trás e lembrar que, naquele começo, nós dois decidimos não deixar a distância acabar com algo que poderia ser bonito.
-
-E talvez seja cedo demais para falar tudo isso.
-
-Talvez seja.
-
-Mas eu prefiro ser sincero.
-
-Porque você se tornou importante para mim rápido demais para eu fingir que não sinto nada.
-
-Eu gosto das nossas conversas.
-
-Gosto da forma como você consegue deixar meus dias diferentes.
-
-Gosto de imaginar o nosso primeiro encontro.
-
-E, principalmente, gosto da possibilidade de isso ser só o começo.
-
-Daqui a alguns dias, vai existir apenas mais um número na nossa contagem.
-
-Depois outro.
-
-E outro.
-
-Até chegar o dia em que o contador finalmente vai chegar ao zero.
-
-E quando isso acontecer, eu espero que a gente esteja no mesmo lugar.
-
-Juntos.
-
-Pessoalmente.
-
-E talvez naquele momento eu nem consiga falar tudo que escrevi aqui.
-
-Então deixo registrado.
-
-Emily, eu quero que dê certo.
-
-Mesmo com a distância.
-
-Mesmo com a saudade.
-
-Mesmo com tudo que ainda não sabemos.
-
-Eu quero tentar com você.
-
-Porque, em apenas alguns dias, você deixou de ser apenas alguém com quem eu conversava...
-
-e se tornou alguém que eu realmente quero ter por perto.
-
-Então guarda essa carta.
-
-Porque ela é só o começo.
-
-O resto eu quero contar pessoalmente.
-
-Com carinho,
-
-Erik ❤️`;
-
-
-const textElement=document.getElementById("letterText");
-const pencil=document.getElementById("pencil");
-
-let index=0;
-
-function typeLetter(){
-
-  if(index < letter.length){
-
-    textElement.innerHTML =
-      letter.substring(0,index+1)
-      .replace(/\n/g,"<br>") +
-      '<span class="cursor"></span>';
-
-    index++;
-
-    /* pequeno movimento do lápis */
-    const progress=index/letter.length;
-
-    pencil.style.opacity="1";
-
-    pencil.style.left=
-      (Math.sin(progress*35)*2+Math.min(progress*85,85))+"%";
-
-    pencil.style.top=
-      (Math.min(progress*85,85))+"%";
-
-    setTimeout(typeLetter,25);
-
-  }else{
-
-    pencil.style.opacity="0";
-
-    textElement.innerHTML =
-      letter.replace(/\n/g,"<br>");
-
-    createHeartBurst();
-  }
-}
-
-setTimeout(typeLetter,1800);
-
-
-/* =========================
-   CONTADOR DO ENCONTRO
-========================= */
-
-/*
-   DATA DO PRIMEIRO ENCONTRO:
-   17 DE NOVEMBRO DE 2026
-*/
-
-const meetingDate =
-  new Date("2026-11-17T18:00:00-03:00");
+const target =
+new Date(
+"2026-11-17T18:00:00-03:00"
+);
 
 function updateCountdown(){
 
-  const now=new Date();
+let diff =
+target - new Date();
 
-  let diff=meetingDate-now;
+if(diff <= 0){
 
-  if(diff<=0){
+document.getElementById("days").textContent="00";
+document.getElementById("hours").textContent="00";
+document.getElementById("minutes").textContent="00";
+document.getElementById("seconds").textContent="00";
 
-    document.getElementById("days").textContent="0";
-    document.getElementById("hours").textContent="0";
-    document.getElementById("minutes").textContent="0";
-    document.getElementById("seconds").textContent="0";
+return;
 
-    document.querySelector("#realCountdown")
-      .insertAdjacentHTML(
-        "afterend",
-        '<p style="text-align:center;color:#ff9bc7;font-size:30px;font-family:Dancing Script,cursive;margin-top:25px;">Chegou o nosso dia. ❤️</p>'
-      );
+}
 
-    return;
-  }
+const days =
+Math.floor(
+diff/(1000*60*60*24)
+);
 
-  const days=Math.floor(diff/(1000*60*60*24));
+diff%=
+1000*60*60*24;
 
-  diff%=1000*60*60*24;
+const hours =
+Math.floor(
+diff/(1000*60*60)
+);
 
-  const hours=Math.floor(diff/(1000*60*60));
+diff%=
+1000*60*60;
 
-  diff%=1000*60*60;
+const minutes =
+Math.floor(
+diff/(1000*60)
+);
 
-  const minutes=Math.floor(diff/(1000*60));
+const seconds =
+Math.floor(
+(diff%(1000*60))/1000
+);
 
-  const seconds=Math.floor((diff%(1000*60))/1000);
+document.getElementById("days")
+.textContent =
+String(days).padStart(2,"0");
 
-  document.getElementById("days").textContent=
-    String(days).padStart(2,"0");
+document.getElementById("hours")
+.textContent =
+String(hours).padStart(2,"0");
 
-  document.getElementById("hours").textContent=
-    String(hours).padStart(2,"0");
+document.getElementById("minutes")
+.textContent =
+String(minutes).padStart(2,"0");
 
-  document.getElementById("minutes").textContent=
-    String(minutes).padStart(2,"0");
+document.getElementById("seconds")
+.textContent =
+String(seconds).padStart(2,"0");
 
-  document.getElementById("seconds").textContent=
-    String(seconds).padStart(2,"0");
 }
 
 updateCountdown();
 
-setInterval(updateCountdown,1000);
+setInterval(
+updateCountdown,
+1000
+);
 
 
 /* =========================
-   MAPA REAL
+   MAPA
 ========================= */
 
-/*
-   Guarulhos
-*/
-const guarulhos=[-23.4545,-46.5333];
+const guarulhos =
+[-23.4545,-46.5333];
 
-/*
-   Florianópolis
-*/
-const floripa=[-27.5949,-48.5482];
+const floripa =
+[-27.5949,-48.5482];
 
-const map=L.map("map",{
-  zoomControl:true
-}).setView([-25.5,-47.5],6);
+const map =
+L.map("map")
+.setView(
+[-25.5,-47.5],
+6
+);
 
 L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-    maxZoom:19,
-    attribution:
-      '&copy; OpenStreetMap contributors'
-  }
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+maxZoom:19,
+attribution:
+'&copy; OpenStreetMap contributors'
+}
 ).addTo(map);
 
 
-/* Ícones */
+const icon =
+L.divIcon({
 
-const startIcon=L.divIcon({
-  className:"",
-  html:`
-    <div style="
-      background:#ff5fa7;
-      width:34px;
-      height:34px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      font-size:17px;
-      box-shadow:0 0 25px rgba(255,70,150,.7);
-      border:3px solid white;
-    ">♥</div>
-  `,
-  iconSize:[34,34],
-  iconAnchor:[17,17]
+className:"",
+
+html:`
+<div style="
+width:34px;
+height:34px;
+border-radius:50%;
+background:#ff5fa7;
+border:3px solid white;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:17px;
+box-shadow:0 0 25px rgba(255,80,170,.7);
+">
+♥
+</div>
+`,
+
+iconSize:[34,34],
+
+iconAnchor:[17,17]
+
 });
 
 
-L.marker(guarulhos,{icon:startIcon})
-  .addTo(map)
-  .bindPopup("<b>❤️ Erik</b><br>Guarulhos — SP");
+L.marker(
+guarulhos,
+{icon:icon}
+)
+.addTo(map)
+.bindPopup(
+"<b>❤️ Erik</b><br>Guarulhos — SP"
+);
 
 
-L.marker(floripa,{icon:startIcon})
-  .addTo(map)
-  .bindPopup("<b>❤️ Emily</b><br>Santa Catarina");
+L.marker(
+floripa,
+{icon:icon}
+)
+.addTo(map)
+.bindPopup(
+"<b>❤️ Emilly</b><br>Santa Catarina"
+);
 
 
-/*
-   Linha da viagem
-*/
+/* ROTA */
 
-const route=[
-  guarulhos,
+const route = [
 
-  [-23.55,-46.63],
-  [-24.00,-47.85],
-  [-24.50,-48.15],
-  [-25.40,-49.25],
-  [-26.30,-48.85],
-  [-26.90,-48.65],
-  floripa
+guarulhos,
+
+[-23.55,-46.63],
+
+[-24.00,-47.85],
+
+[-24.50,-48.15],
+
+[-25.40,-49.25],
+
+[-26.30,-48.85],
+
+[-26.90,-48.65],
+
+floripa
+
 ];
 
-const line=L.polyline(route,{
-  color:"#ff5fa7",
-  weight:5,
-  opacity:.9,
-  dashArray:"12 10"
-}).addTo(map);
 
-map.fitBounds(line.getBounds(),{
-  padding:[35,35]
-});
+const line =
+L.polyline(
+route,
+{
+color:"#ff5fa7",
+weight:5,
+opacity:.9,
+dashArray:"12 10"
+}
+)
+.addTo(map);
 
 
-/* coração viajando pelo mapa */
+map.fitBounds(
+line.getBounds(),
+{
+padding:[35,35]
+}
+);
 
-let marker=L.circleMarker(guarulhos,{
-  radius:7,
-  color:"#fff",
-  fillColor:"#ff5fa7",
-  fillOpacity:1,
-  weight:2
-}).addTo(map);
+
+/* =========================
+   PONTO VIAJANDO
+========================= */
+
+let moving =
+L.circleMarker(
+guarulhos,
+{
+radius:7,
+color:"#fff",
+fillColor:"#ff5fa7",
+fillOpacity:1,
+weight:2
+}
+).addTo(map);
 
 let routeIndex=0;
 
-function animateRoute(){
+setInterval(()=>{
 
-  routeIndex++;
+routeIndex++;
 
-  if(routeIndex>=route.length){
-    routeIndex=0;
-  }
-
-  marker.setLatLng(route[routeIndex]);
-
+if(routeIndex>=route.length){
+routeIndex=0;
 }
 
-setInterval(animateRoute,1100);
+moving.setLatLng(
+route[routeIndex]
+);
+
+},900);
 
 
 /* =========================
    SURPRESA
 ========================= */
 
-function openSurprise(){
+function openSecret(){
 
-  const lock=document.getElementById("lock");
+const lock =
+document.getElementById("lock");
 
-  lock.classList.add("open");
+lock.innerHTML="🔓";
 
-  lock.innerHTML="🔓";
+lock.classList.add("open");
 
-  document.getElementById("surprise").style.display="block";
+document.getElementById(
+"secretMessage"
+).style.display="block";
 
-  createHeartBurst(35);
+hearts(30);
+
 }
 
 
@@ -1161,187 +1516,111 @@ function openSurprise(){
    CORAÇÕES
 ========================= */
 
-function createHeartBurst(amount=15){
+function hearts(amount=15){
 
-  for(let i=0;i<amount;i++){
+for(let i=0;i<amount;i++){
 
-    const heart=document.createElement("div");
+const heart =
+document.createElement("div");
 
-    heart.className="particle";
+heart.className="particle";
 
-    heart.innerHTML=["❤️","💕","💗","💖","✨"][Math.floor(Math.random()*5)];
-
-    heart.style.left=
-      (20+Math.random()*60)+"%";
-
-    heart.style.top=
-      (55+Math.random()*20)+"%";
-
-    heart.style.fontSize=
-      (14+Math.random()*22)+"px";
-
-    heart.style.animationDelay=
-      (Math.random()*1)+"s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-      heart.remove();
-    },4500);
-  }
-}
-
-
-/* =========================
-   MÚSICA ROMÂNTICA
-   GERADA PELO NAVEGADOR
-========================= */
-
-let audioContext=null;
-let musicPlaying=false;
-let musicTimer=null;
-
-const button=document.getElementById("musicButton");
-
-const notes=[
-  261.63,
-  329.63,
-  392.00,
-  329.63,
-  293.66,
-  349.23,
-  440.00,
-  392.00,
-  261.63,
-  329.63,
-  392.00,
-  523.25,
-  440.00,
-  392.00,
-  329.63,
-  293.66
+heart.innerHTML =
+[
+"❤️",
+"💕",
+"💗",
+"💖",
+"✨"
+][
+Math.floor(
+Math.random()*5
+)
 ];
 
-let noteIndex=0;
+heart.style.left =
+20+Math.random()*60+"%";
 
-function playNote(){
+heart.style.top =
+55+Math.random()*25+"%";
 
-  if(!audioContext || !musicPlaying) return;
+heart.style.fontSize =
+15+Math.random()*25+"px";
 
-  const osc=
-    audioContext.createOscillator();
+heart.style.animationDelay =
+Math.random()+"s";
 
-  const gain=
-    audioContext.createGain();
+document.body.appendChild(
+heart
+);
 
-  osc.type="sine";
+setTimeout(
+()=>{
+heart.remove();
+},
+4500
+);
 
-  osc.frequency.value=
-    notes[noteIndex%notes.length];
-
-  gain.gain.setValueAtTime(
-    0.0001,
-    audioContext.currentTime
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.07,
-    audioContext.currentTime+0.04
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.0001,
-    audioContext.currentTime+1.2
-  );
-
-  osc.connect(gain);
-  gain.connect(audioContext.destination);
-
-  osc.start();
-
-  osc.stop(
-    audioContext.currentTime+1.25
-  );
-
-  noteIndex++;
-
-  musicTimer=setTimeout(
-    playNote,
-    600
-  );
 }
 
-
-function toggleMusic(){
-
-  if(!audioContext){
-
-    audioContext=
-      new (window.AudioContext ||
-      window.webkitAudioContext)();
-  }
-
-  if(audioContext.state==="suspended"){
-    audioContext.resume();
-  }
-
-  musicPlaying=!musicPlaying;
-
-  if(musicPlaying){
-
-    button.innerHTML="❚❚";
-
-    noteIndex=0;
-
-    playNote();
-
-  }else{
-
-    button.innerHTML="♫";
-
-    clearTimeout(musicTimer);
-  }
 }
 
 
 /* =========================
-   CLIQUE NA TELA = CORAÇÕES
+   CORAÇÃO AO CLICAR
 ========================= */
 
-document.addEventListener("click",(e)=>{
+document.addEventListener(
+"click",
+(e)=>{
 
-  if(
-    e.target.tagName==="BUTTON" ||
-    e.target.closest("#map")
-  ) return;
+if(
+e.target.closest("a") ||
+e.target.closest("button") ||
+e.target.closest("#map")
+)return;
 
-  const heart=document.createElement("div");
+const heart =
+document.createElement("div");
 
-  heart.className="particle";
+heart.className="particle";
 
-  heart.innerHTML="♥";
+heart.innerHTML="♥";
 
-  heart.style.left=e.clientX+"px";
-  heart.style.top=e.clientY+"px";
-  heart.style.color="#ff79b5";
-  heart.style.fontSize="20px";
+heart.style.left =
+e.clientX+"px";
 
-  document.body.appendChild(heart);
+heart.style.top =
+e.clientY+"px";
 
-  setTimeout(()=>{
-    heart.remove();
-  },4000);
+heart.style.color="#ff75b4";
+
+heart.style.fontSize="20px";
+
+document.body.appendChild(
+heart
+);
+
+setTimeout(
+()=>{
+heart.remove();
+},
+4000
+);
 
 });
 
 
 /* =========================
-   EFEITO INICIAL
+   EFEITO DE ABERTURA
 ========================= */
 
-setTimeout(()=>{
-  createHeartBurst(12);
-},3000);
+setTimeout(
+()=>{
+hearts(15);
+},
+1500
+);
 
 </script>
 
