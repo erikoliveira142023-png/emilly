@@ -1,1160 +1,896 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Emilly ❤️</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      background: #050308;
-      color: white;
-      font-family: Georgia, "Times New Roman", serif;
-      overflow-x: hidden;
-    }
-    button {
-      font-family: inherit;
-    }
-    /* =========================
-       FUNDO / ESTRELAS
-    ========================= */
-    #stars {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        radial-gradient(circle at 50% 20%, #241026 0%, #0b0610 45%, #030205 100%);
-      overflow: hidden;
-    }
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      opacity: .5;
-      animation: twinkle 3s infinite alternate;
-    }
-    @keyframes twinkle {
-      from {
-        opacity: .15;
-        transform: scale(.7);
-      }
-      to {
-        opacity: .9;
-        transform: scale(1.5);
-      }
-    }
-    /* =========================
-       INTRO
-    ========================= */
-    #intro {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: #030205;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: opacity 1.5s ease, visibility 1.5s ease;
-    }
-    #intro.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .intro-content {
-      padding: 25px;
-    }
-    .intro-heart {
-      font-size: 70px;
-      animation: heartbeat 1.5s infinite;
-      margin-bottom: 25px;
-    }
-    .intro-small {
-      color: #b995aa;
-      letter-spacing: 5px;
-      font-size: 11px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-    #typing {
-      font-size: clamp(45px, 12vw, 90px);
-      color: #ff86b8;
-      min-height: 1.1em;
-    }
-    .intro-sub {
-      color: #bba6b5;
-      margin-top: 20px;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .intro-sub.show {
-      opacity: 1;
-    }
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.15);
-      }
-    }
-    /* =========================
-       BOTÕES
-    ========================= */
-    .btn {
-      border: 1px solid rgba(255, 120, 175, .45);
-      background: linear-gradient(135deg, #f14f91, #a82f6a);
-      color: white;
-      padding: 15px 28px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: .3s;
-      box-shadow: 0 10px 35px rgba(255, 50, 140, .18);
-    }
-    .btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 15px 45px rgba(255, 50, 140, .3);
-    }
-    .btn-outline {
-      background: transparent;
-    }
-    /* =========================
-       HERO
-    ========================= */
-    #site {
-      opacity: 0;
-      transition: opacity 1.5s ease;
-    }
-    #site.show {
-      opacity: 1;
-    }
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px 20px;
-      position: relative;
-    }
-    .hero-inner {
-      max-width: 800px;
-    }
-    .hero-heart {
-      font-size: 65px;
-      animation: heartbeat 1.5s infinite;
-    }
-    .mini {
-      margin-top: 25px;
-      color: #c29db2;
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-    h1 {
-      font-size: clamp(50px, 11vw, 100px);
-      line-height: .95;
-      margin: 18px 0;
-    }
-    .pink {
-      color: #ff78ad;
-    }
-    .hero-text {
-      color: #cdb9c5;
-      line-height: 1.8;
-      font-size: 18px;
-      max-width: 620px;
-      margin: auto;
-    }
-    .hero-actions {
-      margin-top: 35px;
-    }
-    /* =========================
-       SEÇÕES
-    ========================= */
-    section {
-      max-width: 950px;
-      margin: auto;
-      padding: 100px 20px;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-    .section-title h2 {
-      font-size: clamp(32px, 7vw, 60px);
-      margin-bottom: 12px;
-    }
-    .section-title p {
-      color: #a995a4;
-      line-height: 1.6;
-    }
-    .glass {
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(255,120,175,.14);
-      border-radius: 30px;
-      padding: 35px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 25px 80px rgba(0,0,0,.25);
-    }
-    /* =========================
-       MÚSICA
-    ========================= */
-    .music-box {
-      text-align: center;
-    }
-    .disc {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 25px;
-      border-radius: 50%;
-      background:
-        repeating-radial-gradient(
-          circle,
-          #171017 0px,
-          #171017 5px,
-          #252027 6px,
-          #171017 9px
-        );
-      border: 4px solid #32152a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 30px;
-    }
-    .disc.playing {
-      animation: spin 4s linear infinite;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    .music-note {
-      color: #bfa7b5;
-      margin-top: 15px;
-      font-size: 13px;
-    }
-    /* =========================
-       CONTADOR
-    ========================= */
-    .counter {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-    .time {
-      text-align: center;
-      padding: 25px 10px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(255,255,255,.07);
-    }
-    .time strong {
-      display: block;
-      font-size: 42px;
-      color: #ff78ad;
-    }
-    .time span {
-      color: #927f8e;
-      font-size: 11px;
-      letter-spacing: 2px;
-    }
-    /* =========================
-       MAPA
-    ========================= */
-    .map-container {
-      overflow: hidden;
-    }
-    .map {
-      width: 100%;
-      margin-top: 25px;
-    }
-    .route {
-      fill: none;
-      stroke: #ff6fa7;
-      stroke-width: 5;
-      stroke-linecap: round;
-      stroke-dasharray: 12 12;
-      animation: road 1.5s linear infinite;
-    }
-    @keyframes road {
-      to {
-        stroke-dashoffset: -48;
-      }
-    }
-    .map-dot {
-      fill: #fff;
-      stroke: #ff6fa7;
-      stroke-width: 5;
-    }
-    .traveler {
-      fill: #ff6fa7;
-      filter: drop-shadow(0 0 8px #ff6fa7);
-    }
-    .map-label {
-      fill: white;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .map-small {
-      fill: #a991a1;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-    }
-    /* =========================
-       TIMELINE
-    ========================= */
-    .timeline {
-      position: relative;
-      margin-top: 30px;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 18px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(#ff6fa7, transparent);
-    }
-    .timeline-item {
-      position: relative;
-      padding: 0 0 35px 55px;
-    }
-    .timeline-dot {
-      position: absolute;
-      left: 9px;
-      top: 3px;
-      width: 20px;
-      height: 20px;
-      background: #ff6fa7;
-      border-radius: 50%;
-      box-shadow: 0 0 20px rgba(255,111,167,.5);
-    }
-    .timeline-item h3 {
-      margin-bottom: 7px;
-    }
-    .timeline-item p {
-      color: #aa98a5;
-      line-height: 1.7;
-    }
-    /* =========================
-       ENVELOPE
-    ========================= */
-    .envelope-area {
-      text-align: center;
-    }
-    .envelope {
-      width: 250px;
-      height: 160px;
-      margin: 35px auto;
-      position: relative;
-      cursor: pointer;
-      perspective: 800px;
-    }
-    .env-body {
-      position: absolute;
-      inset: 0;
-      background: #c94f7f;
-      border-radius: 10px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-    .env-flap {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 0;
-      border-left: 125px solid transparent;
-      border-right: 125px solid transparent;
-      border-top: 90px solid #e56a97;
-      transform-origin: top;
-      transition: transform .8s ease;
-      z-index: 3;
-    }
-    .env-letter {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 8px;
-      height: 130px;
-      background: #fff8fb;
-      color: #4d2739;
-      border-radius: 5px;
-      transition: .9s ease;
-      z-index: 2;
-      padding: 20px;
-      font-size: 13px;
-    }
-    .envelope.open .env-flap {
-      transform: rotateX(180deg);
-    }
-    .envelope.open .env-letter {
-      transform: translateY(-90px);
-    }
-    .letter-content {
-      display: none;
-      text-align: left;
-      margin-top: 80px;
-      line-height: 1.9;
-      color: #e8d6e0;
-    }
-    .letter-content.show {
-      display: block;
-      animation: appear .8s ease;
-    }
-    @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    /* =========================
-       SURPRESA FINAL
-    ========================= */
-    .final {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .final-heart {
-      font-size: 90px;
-      animation: heartbeat 1.5s infinite;
-    }
-    .final h2 {
-      font-size: clamp(42px, 10vw, 85px);
-      margin: 25px 0;
-    }
-    .final p {
-      max-width: 620px;
-      margin: auto;
-      color: #bca8b6;
-      line-height: 1.8;
-      font-size: 18px;
-    }
-    /* =========================
-       CORAÇÕES
-    ========================= */
-    .floating-heart {
-      position: fixed;
-      pointer-events: none;
-      z-index: 50;
-      animation: floatHeart 4s linear forwards;
-    }
-    @keyframes floatHeart {
-      from {
-        transform: translateY(0) scale(.7) rotate(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-250px) scale(1.3) rotate(25deg);
-        opacity: 0;
-      }
-    }
-    /* =========================
-       RESPONSIVO
-    ========================= */
-    @media(max-width: 650px) {
-      section {
-        padding: 75px 16px;
-      }
-      .glass {
-        padding: 25px 18px;
-      }
-      .counter {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .time strong {
-        font-size: 32px;
-      }
-      .hero-text {
-        font-size: 16px;
-      }
-      .map-label {
-        font-size: 11px;
-      }
-      .map-small {
-        font-size: 9px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De um canto do Brasil ao outro ❤️</title>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600;700&display=swap');
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+:root{
+    --pink:#ff5c91;
+    --pink2:#ff2f72;
+    --green:#00a86b;
+    --dark:#07080c;
+    --soft:#f7dce6;
+}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    background:
+        radial-gradient(circle at 20% 10%,rgba(255,92,145,.18),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(0,168,107,.12),transparent 30%),
+        var(--dark);
+    color:white;
+    font-family:Poppins,sans-serif;
+    overflow-x:hidden;
+}
+.screen{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    position:relative;
+}
+.screen.active{
+    display:flex;
+}
+.container{
+    width:min(950px,100%);
+    text-align:center;
+}
+.card{
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:30px;
+    padding:35px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 100px rgba(0,0,0,.4);
+}
+h1,h2{
+    font-family:"DM Serif Display",serif;
+}
+h1{
+    font-size:clamp(3rem,8vw,6rem);
+    line-height:.95;
+}
+h2{
+    font-size:clamp(2rem,5vw,3.5rem);
+}
+p{
+    color:#ddd;
+    line-height:1.8;
+}
+.small{
+    font-size:.9rem;
+    color:#aaa;
+}
+.highlight{
+    color:#ff7da7;
+}
+button{
+    font-family:inherit;
+}
+.btn{
+    border:0;
+    border-radius:999px;
+    padding:15px 28px;
+    margin-top:22px;
+    color:white;
+    background:linear-gradient(135deg,var(--pink2),var(--pink));
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 12px 30px rgba(255,47,114,.25);
+}
+.btn:hover{
+    transform:translateY(-4px) scale(1.02);
+}
+.btn.secondary{
+    background:rgba(255,255,255,.07);
+    box-shadow:none;
+}
+/* INTRO */
+.introHeart{
+    font-size:5rem;
+    animation:pulse 1.7s infinite;
+    margin-bottom:20px;
+}
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.13)}
+}
+/* FRASES */
+.reveal{
+    min-height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"DM Serif Display",serif;
+    font-size:clamp(1.6rem,5vw,2.8rem);
+    color:#ffdce7;
+    margin:30px 0;
+}
+/* MAPA */
+#map{
+    width:100%;
+    height:470px;
+    border-radius:25px;
+    margin-top:25px;
+    overflow:hidden;
+}
+.map-caption{
+    margin-top:18px;
+}
+.distance{
+    font-size:2rem;
+    color:#ff7da7;
+    font-weight:700;
+    margin-top:10px;
+}
+/* TIMELINE */
+.timeline{
+    display:grid;
+    gap:14px;
+    margin-top:25px;
+}
+.day{
+    padding:22px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    text-align:left;
+    cursor:pointer;
+    transition:.25s;
+}
+.day:hover{
+    transform:translateX(6px);
+    background:rgba(255,92,145,.08);
+}
+.day strong{
+    color:#ff7da7;
+}
+.dayText{
+    display:none;
+    margin-top:10px;
+}
+.day.open .dayText{
+    display:block;
+}
+/* PERGUNTAS */
+.question{
+    font-size:1.35rem;
+    font-weight:600;
+    margin:25px auto;
+}
+.answers{
+    display:grid;
+    gap:12px;
+    max-width:650px;
+    margin:auto;
+}
+.answer{
+    padding:16px;
+    color:white;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.045);
+    cursor:pointer;
+    transition:.2s;
+}
+.answer:hover{
+    background:rgba(255,92,145,.13);
+    transform:translateX(5px);
+}
+/* CARTA */
+.letter{
+    background:#fff8fb;
+    color:#321923;
+    border-radius:5px;
+    padding:35px;
+    text-align:left;
+    box-shadow:0 25px 70px rgba(0,0,0,.3);
+    transform:rotate(-1deg);
+}
+.letter p{
+    color:#4a333d;
+    margin-bottom:18px;
+}
+/* CONTAGEM */
+.countdown{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:30px 0;
+}
+.time{
+    min-width:90px;
+    padding:17px;
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+}
+.time strong{
+    display:block;
+    font-size:2rem;
+    color:#ff6d9b;
+}
+.finalQuestion{
+    font-family:"DM Serif Display",serif;
+    font-size:clamp(3rem,9vw,6rem);
+    color:#ff6d9b;
+    line-height:1;
+    margin:25px 0;
+}
+/* CORAÇÕES */
+.heart{
+    position:fixed;
+    bottom:-40px;
+    pointer-events:none;
+    animation:float 7s linear forwards;
+    z-index:0;
+}
+@keyframes float{
+    to{
+        transform:translateY(-115vh) rotate(360deg);
+        opacity:0;
+    }
+}
+.hidden{
+    display:none!important;
+}
+/* CONFETE */
+.confetti{
+    position:fixed;
+    top:-20px;
+    width:9px;
+    height:15px;
+    z-index:9999;
+    animation:confetti 4s linear forwards;
+}
+@keyframes confetti{
+    to{
+        transform:translateY(110vh) rotate(800deg);
+        opacity:0;
+    }
+}
+@media(max-width:600px){
+    .card{
+        padding:24px 17px;
+    }
+    #map{
+        height:380px;
+    }
+    .time{
+        min-width:72px;
+    }
+}
+</style>
 </head>
 <body>
-  <!-- ESTRELAS -->
-  <div id="stars"></div>
-  <!-- INTRO -->
-  <div id="intro">
-    <div class="intro-content">
-      <div class="intro-heart">❤️</div>
-      <div class="intro-small">
-        uma coisa que eu fiz pra você
-      </div>
-      <div id="typing"></div>
-      <p id="introSub" class="intro-sub">
-        espera só mais um pouquinho...
-      </p>
+<!-- =========================
+     INTRO
+========================= -->
+<section class="screen active" id="intro">
+<div class="container">
+    <div class="introHeart">❤️</div>
+    <p class="small">UMA PEQUENA HISTÓRIA</p>
+    <h1>
+        De um canto<br>
+        do Brasil ao outro.
+    </h1>
+    <p style="max-width:650px;margin:25px auto">
+        Você em Santa Catarina.<br>
+        Eu em São Paulo.
+        <br><br>
+        E, de alguma forma, depois de só alguns dias,
+        você já conseguiu fazer eu sorrir olhando para a tela.
+    </p>
+    <button class="btn" onclick="go('mapScreen')">
+        Quero ver onde isso começa →
+    </button>
+</div>
+</section>
+<!-- =========================
+     MAPA
+========================= -->
+<section class="screen" id="mapScreen">
+<div class="container">
+<div class="card">
+    <p class="small">CAPÍTULO 01</p>
+    <h2>Uma distância enorme...</h2>
+    <p style="margin-top:15px">
+        Mas olha só onde a história resolveu começar.
+    </p>
+    <div id="map"></div>
+    <div class="map-caption">
+        <span>📍 Santa Catarina</span>
+        &nbsp;&nbsp;❤️&nbsp;&nbsp;
+        <span>📍 São Paulo</span>
+        <div class="distance">
+            ~800 km
+        </div>
+        <p class="small">
+            A distância é aproximada e depende das cidades escolhidas.
+        </p>
     </div>
-  </div>
-  <!-- SITE -->
-  <main id="site">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-heart">
-          ❤️
-        </div>
-        <div class="mini">
-          para uma pessoa muito especial
-        </div>
-        <h1>
-          Emilly,<br>
-          <span class="pink">isso é nosso.</span>
-        </h1>
-        <p class="hero-text">
-          A gente conversa há poucos dias,
-          mas você já conseguiu fazer eu contar
-          os dias para uma coisa que ainda nem aconteceu.
-        </p>
-        <div class="hero-actions">
-          <button id="musicBtn" class="btn">
-            🎵 Tocar "Interessante"
-          </button>
-          <button id="continueBtn" class="btn btn-outline">
-            Entrar na surpresa ↓
-          </button>
-        </div>
-      </div>
-    </section>
-    <!-- MÚSICA -->
-    <section>
-      <div class="glass music-box">
-        <div id="disc" class="disc">
-          ❤️
-        </div>
-        <h2>
-          Essa música é pra você.
-        </h2>
-        <p class="music-note">
-          "Interessante" — Ferrugem
-        </p>
-        <p class="music-note">
-          Toque no botão acima para ouvir.
-        </p>
-      </div>
-    </section>
-    <!-- CONTADOR -->
-    <section>
-      <div class="section-title">
-        <h2>
-          Falta pouco...
-        </h2>
-        <p>
-          E eu tô contando cada segundo.
-        </p>
-      </div>
-      <div class="glass">
-        <div class="counter">
-          <div class="time">
-            <strong id="days">00</strong>
-            <span>DIAS</span>
-          </div>
-          <div class="time">
-            <strong id="hours">00</strong>
-            <span>HORAS</span>
-          </div>
-          <div class="time">
-            <strong id="minutes">00</strong>
-            <span>MINUTOS</span>
-          </div>
-          <div class="time">
-            <strong id="seconds">00</strong>
-            <span>SEGUNDOS</span>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- MAPA -->
-    <section>
-      <div class="section-title">
-        <h2>
-          A distância...
-        </h2>
-        <p>
-          Guarulhos → Santa Catarina
-        </p>
-      </div>
-      <div class="glass map-container">
-        <svg class="map"
-             viewBox="0 0 700 350"
-             aria-label="Rota ilustrativa de Guarulhos até Santa Catarina">
-          <path
-            d="M110 75
-               C170 90 220 120 275 145
-               C350 180 420 215 485 245
-               C520 260 555 270 600 280"
-            class="route"
-          />
-          <circle
-            cx="110"
-            cy="75"
-            r="10"
-            class="map-dot"
-          />
-          <circle
-            cx="600"
-            cy="280"
-            r="10"
-            class="map-dot"
-          />
-          <circle
-            id="traveler"
-            cx="110"
-            cy="75"
-            r="7"
-            class="traveler"
-          />
-          <text
-            x="75"
-            y="48"
-            class="map-label">
-            📍 GUARULHOS
-          </text>
-          <text
-            x="75"
-            y="100"
-            class="map-small">
-            São Paulo
-          </text>
-          <text
-            x="510"
-            y="250"
-            class="map-label">
-            ❤️ SANTA CATARINA
-          </text>
-          <text
-            x="510"
-            y="300"
-            class="map-small">
-            onde eu vou te encontrar
-          </text>
-        </svg>
-        <p style="
-          text-align:center;
-          color:#907d8c;
-          font-size:12px;
-          margin-top:10px;
-        ">
-          Rota ilustrativa — não está em escala.
-        </p>
-      </div>
-    </section>
-    <!-- HISTÓRIA -->
-    <section>
-      <div class="section-title">
-        <h2>
-          Como começou...
-        </h2>
-        <p>
-          E pensar que tudo isso começou com uma conversa.
-        </p>
-      </div>
-      <div class="glass">
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <h3>
-              Dia 1 ❤️
-            </h3>
-            <p>
-              A gente começou a conversar.
-              E eu ainda não fazia ideia do quanto
-              você ia se tornar importante.
-            </p>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <h3>
-              Dia 5
-            </h3>
-            <p>
-              Cinco dias conversando e você já conseguiu
-              virar uma das melhores partes dos meus dias.
-            </p>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <h3>
-              Daqui a um mês...
-            </h3>
-            <p>
-              A distância acaba por alguns dias.
-              São Paulo fica pra trás e finalmente
-              chega a hora de te encontrar.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ENVELOPE -->
-    <section>
-      <div class="section-title">
-        <h2>
-          Tem uma coisa pra você.
-        </h2>
-        <p>
-          Toca no envelope.
-        </p>
-      </div>
-      <div class="glass envelope-area">
-        <div
-          id="envelope"
-          class="envelope"
-          role="button"
-          tabindex="0"
-          aria-label="Abrir carta">
-          <div class="env-body"></div>
-          <div class="env-letter">
-            Uma carta para você ❤️
-          </div>
-          <div class="env-flap"></div>
-        </div>
-        <div id="letterContent" class="letter-content">
-          <p>
-            Emilly,
-          </p>
-          <br>
-          <p>
-            Eu nem sei direito por onde começar essa carta,
-            porque parece que qualquer coisa que eu escrever
-            ainda vai ser pouco perto de tudo que eu tô sentindo.
-          </p>
-          <br>
-          <p>
-            A gente conversa há tão pouco tempo, mas você
-            chegou na minha vida de um jeito que eu não esperava.
-            Você foi uma das melhores coisas que aconteceram comigo
-            e conseguiu deixar meus dias diferentes.
-          </p>
-          <br>
-          <p>
-            E agora tem uma coisa que não sai da minha cabeça:
-            daqui a pouco eu vou estar aí.
-          </p>
-          <br>
-          <p>
-            Eu tô muito ansioso pra finalmente te ver.
-            Quero te abraçar, te pirraçar, rir com você,
-            ficar perto de você e colocar em prática tudo aquilo
-            que a gente ficou conversando — e muito mais.
-          </p>
-          <br>
-          <p>
-            Quero ouvir sua risada de perto.
-            Quero olhar pra você e perceber que aquela pessoa
-            com quem eu passei horas conversando está finalmente
-            na minha frente.
-          </p>
-          <br>
-          <p>
-            Mas quero muito mais do que isso.
-            Quero criar momentos que a gente nem planejou.
-            Quero transformar nossas conversas em lembranças.
-          </p>
-          <br>
-          <p>
-            Eu não sei exatamente onde essa história vai chegar.
-            Mas sei que quero descobrir.
-          </p>
-          <br>
-          <p>
-            Então se prepara, Emilly.
-          </p>
-          <br>
-          <p>
-            Daqui a pouco eu vou estar em Santa Catarina.
-          </p>
-          <br>
-          <p>
-            E quando eu chegar, pode ter certeza:
-            vou querer aproveitar cada segundo,
-            te pirraçar muito e viver tudo aquilo
-            que a gente ficou imaginando.
-          </p>
-          <br>
-          <p>
-            ❤️
-          </p>
-          <br>
-          <p style="
-            text-align:right;
-            color:#ff86b8;
-            font-size:20px;
-          ">
-            Com carinho,<br>
-            eu.
-          </p>
-        </div>
-      </div>
-    </section>
-    <!-- SURPRESA -->
-    <section class="final">
-      <div>
-        <div class="final-heart">
-          ❤️
-        </div>
-        <div class="mini">
-          última coisa
-        </div>
-        <h2>
-          Emilly...
-        </h2>
-        <p>
-          Depois de tanta conversa,
-          tanta brincadeira e tanta distância,
-          agora falta pouco pra eu finalmente
-          poder olhar pra você.
-        </p>
+    <button class="btn" onclick="go('fiveDays')">
+        E pensar que tudo começou há 5 dias...
+    </button>
+</div>
+</div>
+</section>
+<!-- =========================
+     5 DIAS
+========================= -->
+<section class="screen" id="fiveDays">
+<div class="container">
+<div class="card">
+    <p class="small">CAPÍTULO 02</p>
+    <h2>5 dias.</h2>
+    <p>
+        Só cinco dias conversando.
         <br>
+        Parece pouco quando você fala assim.
+    </p>
+    <div class="timeline">
+        <div class="day" onclick="openDay(this)">
+            <strong>Dia 1</strong>
+            <div class="dayText">
+                “Ainda era só uma conversa...”
+                <br>
+                <span class="small">
+                    Pelo menos era isso que eu achava. 👀
+                </span>
+            </div>
+        </div>
+        <div class="day" onclick="openDay(this)">
+            <strong>Dia 2</strong>
+            <div class="dayText">
+                “Já tinha assunto que não acabava.”
+                <br>
+                <span class="small">
+                    E provavelmente risada demais também. 😂
+                </span>
+            </div>
+        </div>
+        <div class="day" onclick="openDay(this)">
+            <strong>Dia 3</strong>
+            <div class="dayText">
+                “Comecei a perceber algumas semelhanças.”
+                <br>
+                <span class="small">
+                    Nosso jeito meio doido de pensar talvez seja perigoso. 🤡
+                </span>
+            </div>
+        </div>
+        <div class="day" onclick="openDay(this)">
+            <strong>Dia 4</strong>
+            <div class="dayText">
+                “Você já estava virando alguém que eu procurava.”
+                <br>
+                <span class="small">
+                    Aquela vontade de ver se você mandou mensagem.
+                </span>
+            </div>
+        </div>
+        <div class="day" onclick="openDay(this)">
+            <strong>Dia 5</strong>
+            <div class="dayText">
+                “E aí eu pensei em fazer isso.”
+                <br>
+                <span class="small">
+                    Porque você merece saber que eu gosto de ter você por perto. ❤️
+                </span>
+            </div>
+        </div>
+    </div>
+    <button class="btn" onclick="go('things')">
+        Tem mais uma coisa...
+    </button>
+</div>
+</div>
+</section>
+<!-- =========================
+     COISAS
+========================= -->
+<section class="screen" id="things">
+<div class="container">
+<div class="card">
+    <p class="small">CAPÍTULO 03</p>
+    <h2>Coisas que já percebi em você.</h2>
+    <div class="reveal" id="reveal">
+        Clique no botão.
+    </div>
+    <button class="btn" onclick="nextReveal()">
+        Descobrir ❤️
+    </button>
+    <button class="btn secondary" onclick="go('quiz')">
+        Próximo capítulo →
+    </button>
+</div>
+</div>
+</section>
+<!-- =========================
+     QUIZ
+========================= -->
+<section class="screen" id="quiz">
+<div class="container">
+<div class="card">
+    <p class="small">CAPÍTULO 04</p>
+    <h2>Agora chega de eu falar. 👀</h2>
+    <p>
+        Quero saber uma coisa de você.
+    </p>
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+</div>
+</div>
+</section>
+<!-- =========================
+     CARTA
+========================= -->
+<section class="screen" id="letterScreen">
+<div class="container">
+<div class="card">
+    <p class="small">CAPÍTULO 05</p>
+    <h2>Eu precisava te contar.</h2>
+    <div class="letter">
         <p>
-          E quando esse dia chegar,
-          eu quero aproveitar cada segundo.
+            Eu sei que faz pouco tempo.
+            Sei que cinco dias não parecem suficientes
+            para alguém fazer tanta diferença.
         </p>
-        <br>
-        <p class="pink" style="
-          font-size:24px;
-          font-weight:bold;
-        ">
-          Te vejo em Santa Catarina. ❤️
+        <p>
+            Mas acho que algumas pessoas simplesmente
+            conseguem chegar de um jeito diferente.
         </p>
-        <br>
-        <button id="finalBtn" class="btn">
-          Ainda não acabou 👀
+        <p>
+            E você chegou.
+        </p>
+        <p>
+            A gente ri das mesmas coisas,
+            tem umas ideias meio parecidas,
+            conversa sobre qualquer besteira
+            e, mesmo assim, parece que sempre tem
+            mais alguma coisa pra falar.
+        </p>
+        <p>
+            Eu não quero fingir que sei exatamente
+            onde essa história vai chegar.
+        </p>
+        <p>
+            Só sei que eu gostei de encontrar você.
+        </p>
+        <p>
+            E gosto ainda mais da ideia
+            de continuar te conhecendo.
+        </p>
+        <p>
+            Então eu fiz tudo isso por um motivo:
+            queria que você soubesse que,
+            mesmo estando longe,
+            você já conseguiu ficar pertinho de mim.
+        </p>
+        <p style="font-weight:700">
+            E isso, pra mim, significa muito.
+        </p>
+    </div>
+    <button class="btn" onclick="go('waitingScreen')">
+        Ainda não acabou...
+    </button>
+</div>
+</div>
+</section>
+<!-- =========================
+     ESPERA
+========================= -->
+<section class="screen" id="waitingScreen">
+<div class="container">
+<div class="card">
+    <div id="waiting">
+        <p class="small">ÚLTIMO CAPÍTULO</p>
+        <h2>
+            Tem uma pergunta que eu guardei.
+        </h2>
+        <p style="margin-top:15px">
+            Mas ela tem uma data.
+        </p>
+        <div class="countdown">
+            <div class="time">
+                <strong id="days">0</strong>
+                dias
+            </div>
+            <div class="time">
+                <strong id="hours">0</strong>
+                horas
+            </div>
+            <div class="time">
+                <strong id="minutes">0</strong>
+                minutos
+            </div>
+            <div class="time">
+                <strong id="seconds">0</strong>
+                segundos
+            </div>
+        </div>
+        <h2 style="color:#ff719e">
+            25 • 11 • 2026
+        </h2>
+        <p style="margin-top:20px">
+            Volta aqui nesse dia.
+            <br>
+            Eu prometo que vai valer a pena. ❤️
+        </p>
+    </div>
+    <div id="final" class="hidden">
+        <p class="small">25 DE NOVEMBRO DE 2026</p>
+        <div style="font-size:4rem;margin:20px">
+            🥹❤️
+        </div>
+        <p>
+            Depois de tudo isso...
+        </p>
+        <div class="finalQuestion">
+            Quer viver<br>
+            essa história comigo?
+        </div>
+        <p>
+            Sem pressa.<br>
+            Sem promessa impossível.<br>
+            Só nós dois descobrindo até onde isso pode chegar.
+        </p>
+        <button class="btn" onclick="yes()">
+            Quero ❤️
         </button>
-        <div
-          id="finalMessage"
-          style="
-            display:none;
-            margin-top:30px;
-            font-size:20px;
-            line-height:1.8;
-          ">
-          Pode se preparar...
-          <br>
-          Porque eu vou te pirraçar muito.
-          <br>
-          😏❤️
-        </div>
-      </div>
-    </section>
-    <footer style="
-      text-align:center;
-      padding:40px 20px;
-      color:#604e5b;
-      font-size:12px;
-    ">
-      Feito especialmente para Emilly ❤️
-    </footer>
-  </main>
-  <script>
-    /* =====================================
-       ESTRELAS
-    ===================================== */
-    const stars = document.getElementById("stars");
-    for (let i = 0; i < 140; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left =
-        Math.random() * 100 + "%";
-      star.style.top =
-        Math.random() * 100 + "%";
-      star.style.animationDelay =
-        Math.random() * 3 + "s";
-      stars.appendChild(star);
-    }
-    /* =====================================
-       INTRO DIGITANDO "EMILLY"
-    ===================================== */
-    const typing = document.getElementById("typing");
-    const nome = "Emilly";
-    let letra = 0;
-    function escreverNome() {
-      if (letra < nome.length) {
-        typing.textContent += nome[letra];
-        letra++;
-        setTimeout(escreverNome, 180);
-      } else {
-        document
-          .getElementById("introSub")
-          .classList
-          .add("show");
-        setTimeout(() => {
-          document
-            .getElementById("intro")
-            .classList
-            .add("hide");
-          document
-            .getElementById("site")
-            .classList
-            .add("show");
-        }, 2200);
-      }
-    }
-    setTimeout(escreverNome, 700);
-    /* =====================================
-       MÚSICA
-    ===================================== */
-    const musicBtn =
-      document.getElementById("musicBtn");
-    const disc =
-      document.getElementById("disc");
-    musicBtn.addEventListener("click", () => {
-      /*
-        Música comercial:
-        abre o clipe oficial no YouTube.
-      */
-      window.open(
-        "https://www.youtube.com/watch?v=6VwUblINw3A",
-        "_blank"
-      );
-      disc.classList.add("playing");
-      musicBtn.innerHTML =
-        "🎵 Música aberta ❤️";
+    </div>
+</div>
+</div>
+</section>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* =========================
+   NAVEGAÇÃO
+========================= */
+function go(id){
+    document.querySelectorAll(".screen")
+        .forEach(s => s.classList.remove("active"));
+    document.getElementById(id)
+        .classList.add("active");
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
     });
-    /* =====================================
-       CONTINUAR
-    ===================================== */
-    document
-      .getElementById("continueBtn")
-      .addEventListener("click", () => {
-        document
-          .getElementById("main")
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-      });
-    /* =====================================
-       CONTADOR
-       TROQUE A DATA ABAIXO
-       ===================================== */
-    const encontro =
-      new Date(
-        2026,
-        10,
-        15,
-        18,
-        0,
-        0
-      );
-    function atualizarContador() {
-      const agora =
-        new Date();
-      let diferenca =
-        encontro - agora;
-      if (diferenca < 0) {
-        diferenca = 0;
-      }
-      const dias =
-        Math.floor(
-          diferenca /
-          (1000 * 60 * 60 * 24)
-        );
-      const horas =
-        Math.floor(
-          (diferenca /
-            (1000 * 60 * 60)) % 24
-        );
-      const minutos =
-        Math.floor(
-          (diferenca /
-            (1000 * 60)) % 60
-        );
-      const segundos =
-        Math.floor(
-          (diferenca / 1000) % 60
-        );
-      document.getElementById("days")
-        .textContent =
-        String(dias).padStart(2, "0");
-      document.getElementById("hours")
-        .textContent =
-        String(horas).padStart(2, "0");
-      document.getElementById("minutes")
-        .textContent =
-        String(minutos).padStart(2, "0");
-      document.getElementById("seconds")
-        .textContent =
-        String(segundos).padStart(2, "0");
+    if(id === "mapScreen" && !mapCreated){
+        setTimeout(createMap,300);
     }
-    atualizarContador();
-    setInterval(
-      atualizarContador,
-      1000
-    );
-    /* =====================================
-       MAPA — PONTO VIAJANDO
-    ===================================== */
-    const traveler =
-      document.getElementById("traveler");
-    let progress = 0;
-    function animarViagem() {
-      progress += 0.003;
-      if (progress > 1) {
-        progress = 0;
-      }
-      const start = {
-        x: 110,
-        y: 75
-      };
-      const end = {
-        x: 600,
-        y: 280
-      };
-      const x =
-        start.x +
-        (end.x - start.x) *
-        progress;
-      const y =
-        start.y +
-        (end.y - start.y) *
-        progress;
-      traveler.setAttribute(
-        "cx",
-        x
-      );
-      traveler.setAttribute(
-        "cy",
-        y
-      );
-      requestAnimationFrame(
-        animarViagem
-      );
+    if(id === "quiz"){
+        startQuiz();
     }
-    animarViagem();
-    /* =====================================
-       ENVELOPE
-    ===================================== */
-    const envelope =
-      document.getElementById("envelope");
-    const letter =
-      document.getElementById("letterContent");
-    function abrirCarta() {
-      envelope.classList.add("open");
-      setTimeout(() => {
-        letter.classList.add("show");
-        letter.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-      }, 900);
-    }
-    envelope.addEventListener(
-      "click",
-      abrirCarta
-    );
-    envelope.addEventListener(
-      "keydown",
-      (event) => {
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-          event.preventDefault();
-          abrirCarta();
+}
+/* =========================
+   MAPA REAL
+========================= */
+let mapCreated = false;
+function createMap(){
+    mapCreated = true;
+    /*
+       Coordenadas aproximadas de SC e SP.
+       Você pode trocar pelas cidades exatas depois.
+    */
+    const santaCatarina = [-27.33,-49.44];
+    const saoPaulo = [-23.55,-46.63];
+    const map = L.map("map",{
+        scrollWheelZoom:false
+    }).setView([-25.5,-48],5.5);
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution:
+            '&copy; OpenStreetMap contributors'
         }
-      }
-    );
-    /* =====================================
-       CORAÇÕES AO CLICAR
-    ===================================== */
-    document.addEventListener(
-      "click",
-      (event) => {
-        if (
-          event.target.tagName === "BUTTON" ||
-          event.target.closest(".envelope")
-        ) {
-          return;
+    ).addTo(map);
+    const heartIcon = L.divIcon({
+        className:"",
+        html:'<div style="font-size:32px">❤️</div>',
+        iconSize:[35,35],
+        iconAnchor:[17,17]
+    });
+    L.marker(santaCatarina,{
+        icon:heartIcon
+    })
+    .addTo(map)
+    .bindPopup("<b>Ela ❤️</b><br>Santa Catarina");
+    L.marker(saoPaulo,{
+        icon:heartIcon
+    })
+    .addTo(map)
+    .bindPopup("<b>Eu ❤️</b><br>São Paulo");
+    const line = L.polyline(
+        [santaCatarina,saoPaulo],
+        {
+            color:"#ff4f87",
+            weight:4,
+            dashArray:"10 10"
         }
-        criarCoracao(
-          event.clientX,
-          event.clientY
-        );
-      }
-    );
-    function criarCoracao(
-      x,
-      y
-    ) {
-      const heart =
-        document.createElement("div");
-      heart.className =
-        "floating-heart";
-      heart.innerHTML =
-        Math.random() > .5
-          ? "❤️"
-          : "💗";
-      heart.style.left =
-        x + "px";
-      heart.style.top =
-        y + "px";
-      heart.style.fontSize =
-        (15 + Math.random() * 20)
-        + "px";
-      document.body.appendChild(
-        heart
-      );
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
+    ).addTo(map);
+    map.fitBounds(line.getBounds(),{
+        padding:[40,40]
+    });
+    /*
+       Coração viajando pela linha.
+    */
+    let t = 0;
+    setInterval(() => {
+        t += .008;
+        if(t > 1) t = 0;
+        const lat =
+            santaCatarina[0] +
+            (saoPaulo[0]-santaCatarina[0])*t;
+        const lng =
+            santaCatarina[1] +
+            (saoPaulo[1]-santaCatarina[1])*t;
+        if(window.travelMarker){
+            window.travelMarker.setLatLng([lat,lng]);
+        }else{
+            window.travelMarker =
+                L.marker([lat,lng],{
+                    icon:L.divIcon({
+                        className:"",
+                        html:'<div style="font-size:25px">💗</div>',
+                        iconSize:[30,30]
+                    })
+                }).addTo(map);
+        }
+    },60);
+}
+/* =========================
+   DIAS
+========================= */
+function openDay(element){
+    element.classList.toggle("open");
+}
+/* =========================
+   REVELAÇÕES
+========================= */
+const reveals = [
+    "Você ri de praticamente tudo. 😂",
+    "Nosso jeito de pensar parece combinar de um jeito meio suspeito. 🤨",
+    "Você tem um lado sentimental que eu acho muito bonito.",
+    "Você conseguiu fazer cinco dias parecerem muito mais tempo.",
+    "E talvez a coisa que eu mais goste seja simplesmente conversar com você.",
+    "E sim... eu já estou gostando de você mais do que deveria. ❤️"
+];
+let revealIndex = 0;
+function nextReveal(){
+    const box =
+        document.getElementById("reveal");
+    if(revealIndex < reveals.length){
+        box.style.opacity=0;
+        setTimeout(()=>{
+            box.textContent =
+                reveals[revealIndex];
+            box.style.opacity=1;
+            revealIndex++;
+        },250);
+    }else{
+        box.textContent =
+            "Agora você já sabe. ❤️";
     }
-    /* =====================================
-       SURPRESA FINAL
-    ===================================== */
-    document
-      .getElementById("finalBtn")
-      .addEventListener(
-        "click",
-        () => {
-          const msg =
-            document.getElementById(
-              "finalMessage"
+}
+/* =========================
+   QUIZ
+========================= */
+const questions = [
+    {
+        q:"Se eu mandasse mensagem agora, você abriria sorrindo? 👀",
+        a:[
+            "Talvez 😳",
+            "Sim 😂❤️",
+            "Não vou admitir",
+            "Próxima pergunta"
+        ]
+    },
+    {
+        q:"Qual é a nossa maior qualidade juntos?",
+        a:[
+            "A gente ri de tudo",
+            "A conversa nunca acaba",
+            "Nosso jeito parecido",
+            "Tudo isso ❤️"
+        ]
+    },
+    {
+        q:"Você acha que cinco dias são pouco para alguém começar a importar?",
+        a:[
+            "Sim",
+            "Não",
+            "Depende da pessoa",
+            "Acho que você já sabe a resposta..."
+        ]
+    },
+    {
+        q:"Última: você quer continuar descobrindo essa história comigo?",
+        a:[
+            "Quero ❤️",
+            "Quero muito",
+            "Sim 🥹",
+            "Todas as anteriores"
+        ]
+    }
+];
+let questionIndex=0;
+function startQuiz(){
+    questionIndex=0;
+    showQuestion();
+}
+function showQuestion(){
+    const q=questions[questionIndex];
+    document.getElementById("question")
+        .textContent=q.q;
+    const answers =
+        document.getElementById("answers");
+    answers.innerHTML="";
+    q.a.forEach(text=>{
+        const button =
+            document.createElement("button");
+        button.className="answer";
+        button.textContent=text;
+        button.onclick=()=>{
+            button.style.background=
+                "rgba(255,92,145,.2)";
+            setTimeout(()=>{
+                questionIndex++;
+                if(questionIndex>=questions.length){
+                    go("letterScreen");
+                }else{
+                    showQuestion();
+                }
+            },450);
+        };
+        answers.appendChild(button);
+    });
+}
+/* =========================
+   CONTAGEM
+========================= */
+const target =
+    new Date("2026-11-25T00:00:00-03:00");
+function updateCountdown(){
+    const diff =
+        target - new Date();
+    if(diff<=0){
+        document.getElementById("waiting")
+            .classList.add("hidden");
+        document.getElementById("final")
+            .classList.remove("hidden");
+        return;
+    }
+    const days =
+        Math.floor(diff/86400000);
+    const hours =
+        Math.floor(
+            (diff%86400000)/3600000
+        );
+    const minutes =
+        Math.floor(
+            (diff%3600000)/60000
+        );
+    const seconds =
+        Math.floor(
+            (diff%60000)/1000
+        );
+    document.getElementById("days")
+        .textContent=days;
+    document.getElementById("hours")
+        .textContent=hours;
+    document.getElementById("minutes")
+        .textContent=minutes;
+    document.getElementById("seconds")
+        .textContent=seconds;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+/* =========================
+   SIM
+========================= */
+function yes(){
+    const final =
+        document.getElementById("final");
+    final.innerHTML=`
+        <div style="font-size:5rem">
+            ❤️
+        </div>
+        <p class="small">
+            ENTÃO É ISSO.
+        </p>
+        <h1 style="margin:20px 0">
+            Agora a gente<br>
+            continua essa história.
+        </h1>
+        <p style="font-size:1.15rem">
+            Talvez São Paulo e Santa Catarina
+            ainda estejam longe.
+            <br><br>
+            Mas agora existe um motivo
+            para diminuir essa distância.
+        </p>
+        <div style="
+            font-size:2rem;
+            margin-top:25px;
+        ">
+            🥹❤️🌹
+        </div>
+    `;
+    confetti();
+}
+/* =========================
+   CONFETE
+========================= */
+function confetti(){
+    const colors=[
+        "#ff5c91",
+        "#ffcadb",
+        "#ffffff",
+        "#00a86b",
+        "#ffd166"
+    ];
+    for(let i=0;i<120;i++){
+        setTimeout(()=>{
+            const piece =
+                document.createElement("div");
+            piece.className="confetti";
+            piece.style.left =
+                Math.random()*100+"vw";
+            piece.style.background =
+                colors[
+                    Math.floor(
+                        Math.random()*colors.length
+                    )
+                ];
+            piece.style.transform=
+                `rotate(${Math.random()*360}deg)`;
+            document.body.appendChild(piece);
+            setTimeout(
+                ()=>piece.remove(),
+                4500
             );
-          msg.style.display =
-            "block";
-          for (
-            let i = 0;
-            i < 30;
-            i++
-          ) {
-            setTimeout(() => {
-              criarCoracao(
-                Math.random() *
-                window.innerWidth,
-                window.innerHeight
-                * .8
-              );
-            }, i * 70);
-          }
-        }
-      );
-  </script>
+        },i*15);
+    }
+}
+/* =========================
+   CORAÇÕES DE FUNDO
+========================= */
+setInterval(()=>{
+    const heart =
+        document.createElement("div");
+    heart.className="heart";
+    heart.textContent =
+        Math.random()>.5 ? "♡":"✦";
+    heart.style.left =
+        Math.random()*100+"vw";
+    heart.style.fontSize =
+        (15+Math.random()*25)+"px";
+    heart.style.color =
+        Math.random()>.5
+        ? "#ff5c91"
+        : "#ffffff";
+    document.body.appendChild(heart);
+    setTimeout(
+        ()=>heart.remove(),
+        7000
+    );
+},800);
+</script>
 </body>
 </html>
