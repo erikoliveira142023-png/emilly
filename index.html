@@ -3,894 +3,869 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>De um canto do Brasil ao outro ❤️</title>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<title>Para Emilly ✨</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
-}
-:root{
-    --pink:#ff5c91;
-    --pink2:#ff2f72;
-    --green:#00a86b;
-    --dark:#07080c;
-    --soft:#f7dce6;
+    box-sizing:border-box;
 }
 html{
     scroll-behavior:smooth;
 }
 body{
-    background:
-        radial-gradient(circle at 20% 10%,rgba(255,92,145,.18),transparent 30%),
-        radial-gradient(circle at 80% 80%,rgba(0,168,107,.12),transparent 30%),
-        var(--dark);
+    background:#010108;
     color:white;
     font-family:Poppins,sans-serif;
     overflow-x:hidden;
 }
-.screen{
+/* =========================
+   FUNDO ESPACIAL
+========================= */
+.space{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(63,38,120,.16),transparent 35%),
+        radial-gradient(circle at 20% 80%,rgba(20,70,150,.12),transparent 30%),
+        #010108;
+    z-index:-10;
+}
+.stars,
+.stars2,
+.stars3{
+    position:fixed;
+    inset:0;
+    background-repeat:repeat;
+    pointer-events:none;
+}
+.stars{
+    background-image:
+        radial-gradient(2px 2px at 20px 30px,#fff,transparent),
+        radial-gradient(1px 1px at 80px 100px,#fff,transparent),
+        radial-gradient(1px 1px at 160px 50px,#fff,transparent),
+        radial-gradient(2px 2px at 230px 170px,#fff,transparent);
+    background-size:280px 240px;
+    animation:starsMove 70s linear infinite;
+    opacity:.8;
+}
+.stars2{
+    background-image:
+        radial-gradient(1px 1px at 50px 50px,#8bb8ff,transparent),
+        radial-gradient(2px 2px at 180px 130px,#fff,transparent),
+        radial-gradient(1px 1px at 270px 40px,#ff9dd0,transparent);
+    background-size:350px 300px;
+    animation:starsMove 110s linear infinite reverse;
+    opacity:.55;
+}
+.stars3{
+    background-image:
+        radial-gradient(1px 1px at 120px 80px,#fff,transparent),
+        radial-gradient(1px 1px at 300px 180px,#9ee8ff,transparent);
+    background-size:450px 350px;
+    animation:starsMove 150s linear infinite;
+    opacity:.35;
+}
+@keyframes starsMove{
+    to{
+        transform:translate3d(-300px,500px,0);
+    }
+}
+/* =========================
+   SEÇÕES
+========================= */
+section{
     min-height:100vh;
-    display:none;
-    align-items:center;
+    display:flex;
     justify-content:center;
-    padding:25px;
+    align-items:center;
+    padding:40px 20px;
     position:relative;
 }
-.screen.active{
-    display:flex;
-}
 .container{
-    width:min(950px,100%);
+    width:min(1000px,100%);
     text-align:center;
-}
-.card{
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:30px;
-    padding:35px;
-    backdrop-filter:blur(20px);
-    box-shadow:0 30px 100px rgba(0,0,0,.4);
-}
-h1,h2{
-    font-family:"DM Serif Display",serif;
-}
-h1{
-    font-size:clamp(3rem,8vw,6rem);
-    line-height:.95;
-}
-h2{
-    font-size:clamp(2rem,5vw,3.5rem);
-}
-p{
-    color:#ddd;
-    line-height:1.8;
-}
-.small{
-    font-size:.9rem;
-    color:#aaa;
-}
-.highlight{
-    color:#ff7da7;
-}
-button{
-    font-family:inherit;
-}
-.btn{
-    border:0;
-    border-radius:999px;
-    padding:15px 28px;
-    margin-top:22px;
-    color:white;
-    background:linear-gradient(135deg,var(--pink2),var(--pink));
-    font-weight:700;
-    cursor:pointer;
-    transition:.25s;
-    box-shadow:0 12px 30px rgba(255,47,114,.25);
-}
-.btn:hover{
-    transform:translateY(-4px) scale(1.02);
-}
-.btn.secondary{
-    background:rgba(255,255,255,.07);
-    box-shadow:none;
-}
-/* INTRO */
-.introHeart{
-    font-size:5rem;
-    animation:pulse 1.7s infinite;
-    margin-bottom:20px;
-}
-@keyframes pulse{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.13)}
-}
-/* FRASES */
-.reveal{
-    min-height:120px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:"DM Serif Display",serif;
-    font-size:clamp(1.6rem,5vw,2.8rem);
-    color:#ffdce7;
-    margin:30px 0;
-}
-/* MAPA */
-#map{
-    width:100%;
-    height:470px;
-    border-radius:25px;
-    margin-top:25px;
-    overflow:hidden;
-}
-.map-caption{
-    margin-top:18px;
-}
-.distance{
-    font-size:2rem;
-    color:#ff7da7;
-    font-weight:700;
-    margin-top:10px;
-}
-/* TIMELINE */
-.timeline{
-    display:grid;
-    gap:14px;
-    margin-top:25px;
-}
-.day{
-    padding:22px;
-    border-radius:20px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    text-align:left;
-    cursor:pointer;
-    transition:.25s;
-}
-.day:hover{
-    transform:translateX(6px);
-    background:rgba(255,92,145,.08);
-}
-.day strong{
-    color:#ff7da7;
-}
-.dayText{
-    display:none;
-    margin-top:10px;
-}
-.day.open .dayText{
-    display:block;
-}
-/* PERGUNTAS */
-.question{
-    font-size:1.35rem;
-    font-weight:600;
-    margin:25px auto;
-}
-.answers{
-    display:grid;
-    gap:12px;
-    max-width:650px;
-    margin:auto;
-}
-.answer{
-    padding:16px;
-    color:white;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.045);
-    cursor:pointer;
-    transition:.2s;
-}
-.answer:hover{
-    background:rgba(255,92,145,.13);
-    transform:translateX(5px);
-}
-/* CARTA */
-.letter{
-    background:#fff8fb;
-    color:#321923;
-    border-radius:5px;
-    padding:35px;
-    text-align:left;
-    box-shadow:0 25px 70px rgba(0,0,0,.3);
-    transform:rotate(-1deg);
-}
-.letter p{
-    color:#4a333d;
-    margin-bottom:18px;
-}
-/* CONTAGEM */
-.countdown{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:12px;
-    margin:30px 0;
-}
-.time{
-    min-width:90px;
-    padding:17px;
-    border-radius:18px;
-    background:rgba(255,255,255,.07);
-}
-.time strong{
-    display:block;
-    font-size:2rem;
-    color:#ff6d9b;
-}
-.finalQuestion{
-    font-family:"DM Serif Display",serif;
-    font-size:clamp(3rem,9vw,6rem);
-    color:#ff6d9b;
-    line-height:1;
-    margin:25px 0;
-}
-/* CORAÇÕES */
-.heart{
-    position:fixed;
-    bottom:-40px;
-    pointer-events:none;
-    animation:float 7s linear forwards;
-    z-index:0;
-}
-@keyframes float{
-    to{
-        transform:translateY(-115vh) rotate(360deg);
-        opacity:0;
-    }
 }
 .hidden{
     display:none!important;
 }
-/* CONFETE */
-.confetti{
-    position:fixed;
-    top:-20px;
-    width:9px;
-    height:15px;
-    z-index:9999;
-    animation:confetti 4s linear forwards;
+/* =========================
+   HERO
+========================= */
+.hero{
+    overflow:hidden;
 }
-@keyframes confetti{
+.earth{
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    margin:0 auto 50px;
+    position:relative;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #75baff,
+            #1673d1 35%,
+            #082f78 70%,
+            #020b25
+        );
+    box-shadow:
+        0 0 40px #1673d1,
+        0 0 100px rgba(45,130,255,.45),
+        inset -40px -30px 70px rgba(0,0,0,.65);
+    animation:earthFloat 7s ease-in-out infinite;
+}
+.earth::before{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border-radius:50%;
+    border:2px solid rgba(120,200,255,.35);
+    box-shadow:0 0 30px rgba(80,170,255,.4);
+}
+.earth::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse at 20% 35%,
+            rgba(255,255,255,.18),
+            transparent 15%
+        ),
+        radial-gradient(
+            ellipse at 70% 60%,
+            rgba(255,255,255,.08),
+            transparent 20%
+        );
+}
+@keyframes earthFloat{
+    0%,100%{
+        transform:translateY(0) rotate(-2deg);
+    }
+    50%{
+        transform:translateY(-18px) rotate(2deg);
+    }
+}
+.earthLetter{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:5;
+    font-family:Orbitron,sans-serif;
+    font-size:7rem;
+    font-weight:800;
+    color:#fff;
+    text-shadow:
+        0 0 10px white,
+        0 0 30px #66baff,
+        0 0 70px #358cff;
+}
+.eyebrow{
+    letter-spacing:5px;
+    font-size:.75rem;
+    color:#9ebeff;
+    margin-bottom:18px;
+}
+h1{
+    font-family:Orbitron,sans-serif;
+    font-size:clamp(2.5rem,8vw,6rem);
+    line-height:1;
+}
+.gradient{
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #9ed7ff,
+        #ff9cd0,
+        #fff
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+    background-size:300%;
+    animation:gradient 5s linear infinite;
+}
+@keyframes gradient{
     to{
-        transform:translateY(110vh) rotate(800deg);
+        background-position:300%;
+    }
+}
+.subtitle{
+    max-width:650px;
+    margin:25px auto;
+    color:#c9c9d7;
+    line-height:1.8;
+}
+.btn{
+    margin-top:25px;
+    padding:15px 28px;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ff4f9a,#7a5cff);
+    color:white;
+    font-weight:700;
+    font-family:Poppins,sans-serif;
+    cursor:pointer;
+    box-shadow:
+        0 10px 40px rgba(255,79,154,.25);
+    transition:.3s;
+}
+.btn:hover{
+    transform:translateY(-4px) scale(1.03);
+}
+/* =========================
+   SOL
+========================= */
+.sunScene{
+    position:relative;
+    height:500px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.sun{
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 35% 35%,
+        #fff9ae,
+        #ffd21c 35%,
+        #ff7418 70%,
+        #ff3100);
+    box-shadow:
+        0 0 30px #ffcf38,
+        0 0 90px #ff8c1a,
+        0 0 180px rgba(255,87,0,.7);
+    animation:sunPulse 2s ease-in-out infinite;
+    position:absolute;
+    z-index:2;
+}
+@keyframes sunPulse{
+    50%{
+        transform:scale(1.07);
+        box-shadow:
+            0 0 50px #fff052,
+            0 0 130px #ff8c1a,
+            0 0 240px rgba(255,87,0,.8);
+    }
+}
+.sunRing{
+    position:absolute;
+    width:320px;
+    height:320px;
+    border:3px solid rgba(255,145,35,.4);
+    border-radius:50%;
+    animation:rotate 8s linear infinite;
+}
+.sunRing:nth-child(2){
+    width:400px;
+    height:400px;
+    animation-duration:13s;
+    border-style:dashed;
+}
+@keyframes rotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+.explosion{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+}
+.explosion.active{
+    animation:explode 2.5s forwards;
+}
+@keyframes explode{
+    0%{
+        opacity:0;
+        transform:scale(.3);
+    }
+    30%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        transform:scale(3);
+    }
+}
+.explosion span{
+    position:absolute;
+    width:8px;
+    height:100px;
+    background:linear-gradient(
+        transparent,
+        #fff5a0,
+        #ff641c,
+        transparent
+    );
+    transform-origin:center 180px;
+}
+/* =========================
+   EMILLY
+========================= */
+.nameReveal{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,170,70,.08),
+            transparent 40%
+        );
+}
+.emilly{
+    font-family:Orbitron,sans-serif;
+    font-size:clamp(3.5rem,12vw,10rem);
+    font-weight:800;
+    letter-spacing:.08em;
+    color:white;
+    text-shadow:
+        0 0 10px white,
+        0 0 30px #ff9dca,
+        0 0 80px #ff4f9a,
+        0 0 150px #ff2382;
+    animation:nameGlow 2s ease-in-out infinite;
+}
+@keyframes nameGlow{
+    50%{
+        transform:scale(1.03);
+        text-shadow:
+            0 0 15px white,
+            0 0 50px #ffb9da,
+            0 0 110px #ff4f9a,
+            0 0 190px #ff2382;
+    }
+}
+.glowText{
+    margin-top:25px;
+    font-family:Orbitron,sans-serif;
+    font-size:clamp(1.2rem,3vw,2rem);
+    color:#ffe8f2;
+}
+/* =========================
+   LISTA
+========================= */
+.loveSection{
+    background:
+        radial-gradient(circle at center,
+        rgba(255,70,145,.08),
+        transparent 50%);
+}
+.sectionTitle{
+    font-family:Orbitron,sans-serif;
+    font-size:clamp(2rem,5vw,4rem);
+    margin-bottom:15px;
+}
+.sectionSub{
+    color:#aaa;
+    margin-bottom:35px;
+}
+.loveGrid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+.loveCard{
+    text-align:left;
+    padding:24px;
+    border-radius:24px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(15px);
+    transition:.35s;
+    cursor:pointer;
+}
+.loveCard:hover{
+    transform:translateY(-7px) rotate(-1deg);
+    border-color:rgba(255,105,170,.5);
+    background:rgba(255,105,170,.08);
+}
+.loveIcon{
+    font-size:2rem;
+    margin-bottom:12px;
+}
+.loveCard h3{
+    margin-bottom:8px;
+}
+.loveCard p{
+    color:#aaa;
+    line-height:1.6;
+}
+.special{
+    grid-column:1/-1;
+    text-align:center;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,72,145,.13),
+            rgba(110,83,255,.1)
+        );
+}
+.special h3{
+    font-size:1.5rem;
+}
+/* =========================
+   FRASE
+========================= */
+.quote{
+    min-height:70vh;
+}
+.quoteBox{
+    max-width:800px;
+    margin:auto;
+}
+.quoteText{
+    font-family:"Georgia",serif;
+    font-size:clamp(2rem,5vw,4rem);
+    line-height:1.3;
+    color:#fff;
+}
+.quoteText span{
+    color:#ff83b6;
+}
+/* =========================
+   FINAL
+========================= */
+.final{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,50,130,.18),
+            transparent 45%
+        );
+}
+.finalHeart{
+    font-size:7rem;
+    animation:heartBeat 1.5s infinite;
+}
+@keyframes heartBeat{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.2);
+    }
+}
+.final h2{
+    font-family:Orbitron,sans-serif;
+    font-size:clamp(2.3rem,7vw,5rem);
+    margin:25px 0;
+}
+.final p{
+    color:#ccc;
+    max-width:700px;
+    margin:auto;
+    line-height:2;
+}
+/* =========================
+   CORAÇÕES
+========================= */
+.floatingHeart{
+    position:fixed;
+    bottom:-30px;
+    z-index:100;
+    pointer-events:none;
+    animation:floatHeart 7s linear forwards;
+}
+@keyframes floatHeart{
+    to{
+        transform:translateY(-110vh) rotate(360deg);
         opacity:0;
     }
 }
-@media(max-width:600px){
-    .card{
-        padding:24px 17px;
+/* =========================
+   RESPONSIVO
+========================= */
+@media(max-width:650px){
+    .earth{
+        width:230px;
+        height:230px;
     }
-    #map{
-        height:380px;
+    .earthLetter{
+        font-size:5rem;
     }
-    .time{
-        min-width:72px;
+    .loveGrid{
+        grid-template-columns:1fr;
+    }
+    .special{
+        grid-column:auto;
+    }
+    .sun{
+        width:140px;
+        height:140px;
+    }
+    .sunRing{
+        width:250px;
+        height:250px;
     }
 }
 </style>
 </head>
 <body>
+<div class="space"></div>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
 <!-- =========================
-     INTRO
+     1. TERRA
 ========================= -->
-<section class="screen active" id="intro">
+<section class="hero">
 <div class="container">
-    <div class="introHeart">❤️</div>
-    <p class="small">UMA PEQUENA HISTÓRIA</p>
+    <div class="eyebrow">
+        UMA MENSAGEM PERDIDA NO ESPAÇO
+    </div>
+    <div class="earth">
+        <!-- Troque "M" pela sua inicial -->
+        <div class="earthLetter">M</div>
+    </div>
     <h1>
-        De um canto<br>
-        do Brasil ao outro.
+        <span class="gradient">EMILLY</span>
     </h1>
-    <p style="max-width:650px;margin:25px auto">
-        Você em Santa Catarina.<br>
-        Eu em São Paulo.
+    <p class="subtitle">
+        Se o universo é tão grande assim...
+        eu ainda acho engraçado como,
+        no meio de bilhões de pessoas,
+        eu fui encontrar justamente você.
+    </p>
+    <button class="btn"
+            onclick="document.getElementById('sunSection').scrollIntoView()">
+        Continua... ✨
+    </button>
+</div>
+</section>
+<!-- =========================
+     2. SOL
+========================= -->
+<section id="sunSection">
+<div class="container">
+    <div class="eyebrow">
+        CAPÍTULO 01
+    </div>
+    <h2 class="sectionTitle">
+        Eu queria comparar você com o Sol.
+    </h2>
+    <p class="sectionSub">
+        Mas aí aconteceu um pequeno problema...
+    </p>
+    <div class="sunScene">
+        <div class="sunRing"></div>
+        <div class="sunRing"></div>
+        <div class="sun" id="sun"></div>
+        <div class="explosion" id="explosion">
+            <span style="transform:rotate(0deg)"></span>
+            <span style="transform:rotate(45deg)"></span>
+            <span style="transform:rotate(90deg)"></span>
+            <span style="transform:rotate(135deg)"></span>
+            <span style="transform:rotate(180deg)"></span>
+            <span style="transform:rotate(225deg)"></span>
+            <span style="transform:rotate(270deg)"></span>
+            <span style="transform:rotate(315deg)"></span>
+        </div>
+    </div>
+    <p class="subtitle">
+        Porque eu percebi que não dá.
         <br><br>
-        E, de alguma forma, depois de só alguns dias,
-        você já conseguiu fazer eu sorrir olhando para a tela.
+        <strong>
+            Você brilha mais que ele.
+        </strong>
     </p>
-    <button class="btn" onclick="go('mapScreen')">
-        Quero ver onde isso começa →
+    <button class="btn" onclick="explodeSun()">
+        Provar isso ☀️
     </button>
 </div>
 </section>
 <!-- =========================
-     MAPA
+     3. EMILLY
 ========================= -->
-<section class="screen" id="mapScreen">
+<section class="nameReveal">
 <div class="container">
-<div class="card">
-    <p class="small">CAPÍTULO 01</p>
-    <h2>Uma distância enorme...</h2>
-    <p style="margin-top:15px">
-        Mas olha só onde a história resolveu começar.
-    </p>
-    <div id="map"></div>
-    <div class="map-caption">
-        <span>📍 Santa Catarina</span>
-        &nbsp;&nbsp;❤️&nbsp;&nbsp;
-        <span>📍 São Paulo</span>
-        <div class="distance">
-            ~800 km
-        </div>
-        <p class="small">
-            A distância é aproximada e depende das cidades escolhidas.
-        </p>
+    <div class="eyebrow">
+        E ENTÃO...
     </div>
-    <button class="btn" onclick="go('fiveDays')">
-        E pensar que tudo começou há 5 dias...
+    <div class="emilly">
+        EMILLY
+    </div>
+    <div class="glowText">
+        O nome que ficou mais bonito que o próprio Sol.
+    </div>
+    <p class="subtitle">
+        E olha que eu tentei ser poético...
+        mas a culpa é sua por ser difícil de descrever. ❤️
+    </p>
+    <button class="btn"
+            onclick="document.getElementById('love').scrollIntoView()">
+        Agora vem a parte que você vai ficar com vergonha 👀
     </button>
-</div>
 </div>
 </section>
 <!-- =========================
-     5 DIAS
+     4. COISAS QUE AMO
 ========================= -->
-<section class="screen" id="fiveDays">
+<section class="loveSection" id="love">
 <div class="container">
-<div class="card">
-    <p class="small">CAPÍTULO 02</p>
-    <h2>5 dias.</h2>
+    <div class="eyebrow">
+        CAPÍTULO 02
+    </div>
+    <h2 class="sectionTitle">
+        O que eu amo em você
+    </h2>
+    <p class="sectionSub">
+        E antes que você reclame: sim, eu pensei em tudo. 😂
+    </p>
+    <div class="loveGrid">
+        <div class="loveCard">
+            <div class="loveIcon">😂</div>
+            <h3>Suas brincadeiras</h3>
+            <p>
+                Porque você consegue transformar qualquer conversa
+                em alguma coisa que me faz rir.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">🧠</div>
+            <h3>Seu jeitinho meio doido</h3>
+            <p>
+                Nosso cérebro aparentemente veio com o mesmo
+                manual de instruções quebrado. KKKKK.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">💇‍♀️</div>
+            <h3>Seu cabelo</h3>
+            <p>
+                Sim, eu reparei.
+                E sim, ficou bonito demais.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">😊</div>
+            <h3>Seu sorriso</h3>
+            <p>
+                Aquele tipo de sorriso que faz eu esquecer
+                o que eu estava falando.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">👄</div>
+            <h3>Sua boca</h3>
+            <p>
+                Não vou elaborar porque depois
+                você vai ficar convencida. 😶‍🌫️
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">👀</div>
+            <h3>Seus olhos</h3>
+            <p>
+                Tem alguma coisa neles que eu ainda não consegui
+                explicar direito.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">🍑</div>
+            <h3>Seu bumbum</h3>
+            <p>
+                Vamos manter o respeito...
+                mas também não vou mentir. KKKKK.
+            </p>
+        </div>
+        <div class="loveCard">
+            <div class="loveIcon">🙈</div>
+            <h3>Seu corpo</h3>
+            <p>
+                Sim, eu acho você linda.
+                Não vou fingir que não.
+            </p>
+        </div>
+        <div class="loveCard special">
+            <div class="loveIcon">❤️</div>
+            <h3>
+                Resumindo...
+            </h3>
+            <p>
+                Eu gosto das suas brincadeiras,
+                do seu sorriso, do seu cabelo,
+                dos seus olhos, da sua boca,
+                do seu jeito, das suas loucuras,
+                das coisas que só você faz...
+                <br><br>
+                <strong>
+                    Resumindo tudo:
+                    eu gosto de você, Emilly.
+                </strong>
+            </p>
+        </div>
+    </div>
+    <button class="btn"
+            onclick="document.getElementById('quote').scrollIntoView()">
+        Tem uma coisa que eu ainda não falei...
+    </button>
+</div>
+</section>
+<!-- =========================
+     5. FRASE
+========================= -->
+<section class="quote" id="quote">
+<div class="container quoteBox">
+    <div class="eyebrow">
+        CAPÍTULO 03
+    </div>
+    <div class="quoteText">
+        “Eu não sei se foi o acaso,
+        o destino ou simplesmente
+        a sorte...
+        <br><br>
+        mas de todas as pessoas
+        que poderiam aparecer,
+        <span>
+            eu gostei de encontrar você.
+        </span>”
+    </div>
+    <button class="btn"
+            onclick="document.getElementById('final').scrollIntoView()">
+        Última coisa ❤️
+    </button>
+</div>
+</section>
+<!-- =========================
+     6. FINAL
+========================= -->
+<section class="final" id="final">
+<div class="container">
+    <div class="finalHeart">
+        ❤️
+    </div>
+    <div class="eyebrow">
+        EMILLY
+    </div>
+    <h2>
+        Você brilha mais<br>
+        que o Sol.
+    </h2>
     <p>
-        Só cinco dias conversando.
-        <br>
-        Parece pouco quando você fala assim.
+        E se um dia você esquecer disso,
+        volta aqui.
+        <br><br>
+        Porque em algum lugar desse universo
+        existe um garoto em São Paulo
+        que decidiu criar tudo isso
+        só para lembrar uma garota
+        de Santa Catarina
+        o quanto ela é especial.
+        <br><br>
+        E talvez ainda seja cedo.
+        Talvez a gente ainda tenha muita coisa
+        para descobrir.
+        <br><br>
+        Mas eu quero descobrir.
+        Com você.
     </p>
-    <div class="timeline">
-        <div class="day" onclick="openDay(this)">
-            <strong>Dia 1</strong>
-            <div class="dayText">
-                “Ainda era só uma conversa...”
-                <br>
-                <span class="small">
-                    Pelo menos era isso que eu achava. 👀
-                </span>
-            </div>
-        </div>
-        <div class="day" onclick="openDay(this)">
-            <strong>Dia 2</strong>
-            <div class="dayText">
-                “Já tinha assunto que não acabava.”
-                <br>
-                <span class="small">
-                    E provavelmente risada demais também. 😂
-                </span>
-            </div>
-        </div>
-        <div class="day" onclick="openDay(this)">
-            <strong>Dia 3</strong>
-            <div class="dayText">
-                “Comecei a perceber algumas semelhanças.”
-                <br>
-                <span class="small">
-                    Nosso jeito meio doido de pensar talvez seja perigoso. 🤡
-                </span>
-            </div>
-        </div>
-        <div class="day" onclick="openDay(this)">
-            <strong>Dia 4</strong>
-            <div class="dayText">
-                “Você já estava virando alguém que eu procurava.”
-                <br>
-                <span class="small">
-                    Aquela vontade de ver se você mandou mensagem.
-                </span>
-            </div>
-        </div>
-        <div class="day" onclick="openDay(this)">
-            <strong>Dia 5</strong>
-            <div class="dayText">
-                “E aí eu pensei em fazer isso.”
-                <br>
-                <span class="small">
-                    Porque você merece saber que eu gosto de ter você por perto. ❤️
-                </span>
-            </div>
-        </div>
-    </div>
-    <button class="btn" onclick="go('things')">
-        Tem mais uma coisa...
+    <button class="btn" onclick="heartStorm()">
+        ❤️ Eu precisava que você soubesse
     </button>
 </div>
-</div>
 </section>
-<!-- =========================
-     COISAS
-========================= -->
-<section class="screen" id="things">
-<div class="container">
-<div class="card">
-    <p class="small">CAPÍTULO 03</p>
-    <h2>Coisas que já percebi em você.</h2>
-    <div class="reveal" id="reveal">
-        Clique no botão.
-    </div>
-    <button class="btn" onclick="nextReveal()">
-        Descobrir ❤️
-    </button>
-    <button class="btn secondary" onclick="go('quiz')">
-        Próximo capítulo →
-    </button>
-</div>
-</div>
-</section>
-<!-- =========================
-     QUIZ
-========================= -->
-<section class="screen" id="quiz">
-<div class="container">
-<div class="card">
-    <p class="small">CAPÍTULO 04</p>
-    <h2>Agora chega de eu falar. 👀</h2>
-    <p>
-        Quero saber uma coisa de você.
-    </p>
-    <div class="question" id="question"></div>
-    <div class="answers" id="answers"></div>
-</div>
-</div>
-</section>
-<!-- =========================
-     CARTA
-========================= -->
-<section class="screen" id="letterScreen">
-<div class="container">
-<div class="card">
-    <p class="small">CAPÍTULO 05</p>
-    <h2>Eu precisava te contar.</h2>
-    <div class="letter">
-        <p>
-            Eu sei que faz pouco tempo.
-            Sei que cinco dias não parecem suficientes
-            para alguém fazer tanta diferença.
-        </p>
-        <p>
-            Mas acho que algumas pessoas simplesmente
-            conseguem chegar de um jeito diferente.
-        </p>
-        <p>
-            E você chegou.
-        </p>
-        <p>
-            A gente ri das mesmas coisas,
-            tem umas ideias meio parecidas,
-            conversa sobre qualquer besteira
-            e, mesmo assim, parece que sempre tem
-            mais alguma coisa pra falar.
-        </p>
-        <p>
-            Eu não quero fingir que sei exatamente
-            onde essa história vai chegar.
-        </p>
-        <p>
-            Só sei que eu gostei de encontrar você.
-        </p>
-        <p>
-            E gosto ainda mais da ideia
-            de continuar te conhecendo.
-        </p>
-        <p>
-            Então eu fiz tudo isso por um motivo:
-            queria que você soubesse que,
-            mesmo estando longe,
-            você já conseguiu ficar pertinho de mim.
-        </p>
-        <p style="font-weight:700">
-            E isso, pra mim, significa muito.
-        </p>
-    </div>
-    <button class="btn" onclick="go('waitingScreen')">
-        Ainda não acabou...
-    </button>
-</div>
-</div>
-</section>
-<!-- =========================
-     ESPERA
-========================= -->
-<section class="screen" id="waitingScreen">
-<div class="container">
-<div class="card">
-    <div id="waiting">
-        <p class="small">ÚLTIMO CAPÍTULO</p>
-        <h2>
-            Tem uma pergunta que eu guardei.
-        </h2>
-        <p style="margin-top:15px">
-            Mas ela tem uma data.
-        </p>
-        <div class="countdown">
-            <div class="time">
-                <strong id="days">0</strong>
-                dias
-            </div>
-            <div class="time">
-                <strong id="hours">0</strong>
-                horas
-            </div>
-            <div class="time">
-                <strong id="minutes">0</strong>
-                minutos
-            </div>
-            <div class="time">
-                <strong id="seconds">0</strong>
-                segundos
-            </div>
-        </div>
-        <h2 style="color:#ff719e">
-            25 • 11 • 2026
-        </h2>
-        <p style="margin-top:20px">
-            Volta aqui nesse dia.
-            <br>
-            Eu prometo que vai valer a pena. ❤️
-        </p>
-    </div>
-    <div id="final" class="hidden">
-        <p class="small">25 DE NOVEMBRO DE 2026</p>
-        <div style="font-size:4rem;margin:20px">
-            🥹❤️
-        </div>
-        <p>
-            Depois de tudo isso...
-        </p>
-        <div class="finalQuestion">
-            Quer viver<br>
-            essa história comigo?
-        </div>
-        <p>
-            Sem pressa.<br>
-            Sem promessa impossível.<br>
-            Só nós dois descobrindo até onde isso pode chegar.
-        </p>
-        <button class="btn" onclick="yes()">
-            Quero ❤️
-        </button>
-    </div>
-</div>
-</div>
-</section>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* =========================
-   NAVEGAÇÃO
+   SOL EXPLODINDO
 ========================= */
-function go(id){
-    document.querySelectorAll(".screen")
-        .forEach(s => s.classList.remove("active"));
-    document.getElementById(id)
-        .classList.add("active");
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-    if(id === "mapScreen" && !mapCreated){
-        setTimeout(createMap,300);
-    }
-    if(id === "quiz"){
-        startQuiz();
-    }
+function explodeSun(){
+    const sun =
+        document.getElementById("sun");
+    const explosion =
+        document.getElementById("explosion");
+    sun.style.transition="1s";
+    sun.style.transform="scale(.1)";
+    sun.style.opacity="0";
+    explosion.classList.add("active");
+    setTimeout(()=>{
+        document.querySelector(".sunScene")
+            .innerHTML=`
+            <div style="
+                font-family:Orbitron;
+                font-size:clamp(2rem,6vw,5rem);
+                font-weight:800;
+                color:white;
+                text-shadow:
+                    0 0 20px white,
+                    0 0 60px #ff5b9e,
+                    0 0 120px #ff277e;
+            ">
+                EMILLY
+            </div>
+        `;
+    },1300);
 }
 /* =========================
-   MAPA REAL
+   CHUVA DE CORAÇÕES
 ========================= */
-let mapCreated = false;
-function createMap(){
-    mapCreated = true;
-    /*
-       Coordenadas aproximadas de SC e SP.
-       Você pode trocar pelas cidades exatas depois.
-    */
-    const santaCatarina = [-27.33,-49.44];
-    const saoPaulo = [-23.55,-46.63];
-    const map = L.map("map",{
-        scrollWheelZoom:false
-    }).setView([-25.5,-48],5.5);
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            attribution:
-            '&copy; OpenStreetMap contributors'
-        }
-    ).addTo(map);
-    const heartIcon = L.divIcon({
-        className:"",
-        html:'<div style="font-size:32px">❤️</div>',
-        iconSize:[35,35],
-        iconAnchor:[17,17]
-    });
-    L.marker(santaCatarina,{
-        icon:heartIcon
-    })
-    .addTo(map)
-    .bindPopup("<b>Ela ❤️</b><br>Santa Catarina");
-    L.marker(saoPaulo,{
-        icon:heartIcon
-    })
-    .addTo(map)
-    .bindPopup("<b>Eu ❤️</b><br>São Paulo");
-    const line = L.polyline(
-        [santaCatarina,saoPaulo],
-        {
-            color:"#ff4f87",
-            weight:4,
-            dashArray:"10 10"
-        }
-    ).addTo(map);
-    map.fitBounds(line.getBounds(),{
-        padding:[40,40]
-    });
-    /*
-       Coração viajando pela linha.
-    */
-    let t = 0;
-    setInterval(() => {
-        t += .008;
-        if(t > 1) t = 0;
-        const lat =
-            santaCatarina[0] +
-            (saoPaulo[0]-santaCatarina[0])*t;
-        const lng =
-            santaCatarina[1] +
-            (saoPaulo[1]-santaCatarina[1])*t;
-        if(window.travelMarker){
-            window.travelMarker.setLatLng([lat,lng]);
-        }else{
-            window.travelMarker =
-                L.marker([lat,lng],{
-                    icon:L.divIcon({
-                        className:"",
-                        html:'<div style="font-size:25px">💗</div>',
-                        iconSize:[30,30]
-                    })
-                }).addTo(map);
-        }
-    },60);
-}
-/* =========================
-   DIAS
-========================= */
-function openDay(element){
-    element.classList.toggle("open");
-}
-/* =========================
-   REVELAÇÕES
-========================= */
-const reveals = [
-    "Você ri de praticamente tudo. 😂",
-    "Nosso jeito de pensar parece combinar de um jeito meio suspeito. 🤨",
-    "Você tem um lado sentimental que eu acho muito bonito.",
-    "Você conseguiu fazer cinco dias parecerem muito mais tempo.",
-    "E talvez a coisa que eu mais goste seja simplesmente conversar com você.",
-    "E sim... eu já estou gostando de você mais do que deveria. ❤️"
-];
-let revealIndex = 0;
-function nextReveal(){
-    const box =
-        document.getElementById("reveal");
-    if(revealIndex < reveals.length){
-        box.style.opacity=0;
+function heartStorm(){
+    for(let i=0;i<150;i++){
         setTimeout(()=>{
-            box.textContent =
-                reveals[revealIndex];
-            box.style.opacity=1;
-            revealIndex++;
-        },250);
-    }else{
-        box.textContent =
-            "Agora você já sabe. ❤️";
-    }
-}
-/* =========================
-   QUIZ
-========================= */
-const questions = [
-    {
-        q:"Se eu mandasse mensagem agora, você abriria sorrindo? 👀",
-        a:[
-            "Talvez 😳",
-            "Sim 😂❤️",
-            "Não vou admitir",
-            "Próxima pergunta"
-        ]
-    },
-    {
-        q:"Qual é a nossa maior qualidade juntos?",
-        a:[
-            "A gente ri de tudo",
-            "A conversa nunca acaba",
-            "Nosso jeito parecido",
-            "Tudo isso ❤️"
-        ]
-    },
-    {
-        q:"Você acha que cinco dias são pouco para alguém começar a importar?",
-        a:[
-            "Sim",
-            "Não",
-            "Depende da pessoa",
-            "Acho que você já sabe a resposta..."
-        ]
-    },
-    {
-        q:"Última: você quer continuar descobrindo essa história comigo?",
-        a:[
-            "Quero ❤️",
-            "Quero muito",
-            "Sim 🥹",
-            "Todas as anteriores"
-        ]
-    }
-];
-let questionIndex=0;
-function startQuiz(){
-    questionIndex=0;
-    showQuestion();
-}
-function showQuestion(){
-    const q=questions[questionIndex];
-    document.getElementById("question")
-        .textContent=q.q;
-    const answers =
-        document.getElementById("answers");
-    answers.innerHTML="";
-    q.a.forEach(text=>{
-        const button =
-            document.createElement("button");
-        button.className="answer";
-        button.textContent=text;
-        button.onclick=()=>{
-            button.style.background=
-                "rgba(255,92,145,.2)";
-            setTimeout(()=>{
-                questionIndex++;
-                if(questionIndex>=questions.length){
-                    go("letterScreen");
-                }else{
-                    showQuestion();
-                }
-            },450);
-        };
-        answers.appendChild(button);
-    });
-}
-/* =========================
-   CONTAGEM
-========================= */
-const target =
-    new Date("2026-11-25T00:00:00-03:00");
-function updateCountdown(){
-    const diff =
-        target - new Date();
-    if(diff<=0){
-        document.getElementById("waiting")
-            .classList.add("hidden");
-        document.getElementById("final")
-            .classList.remove("hidden");
-        return;
-    }
-    const days =
-        Math.floor(diff/86400000);
-    const hours =
-        Math.floor(
-            (diff%86400000)/3600000
-        );
-    const minutes =
-        Math.floor(
-            (diff%3600000)/60000
-        );
-    const seconds =
-        Math.floor(
-            (diff%60000)/1000
-        );
-    document.getElementById("days")
-        .textContent=days;
-    document.getElementById("hours")
-        .textContent=hours;
-    document.getElementById("minutes")
-        .textContent=minutes;
-    document.getElementById("seconds")
-        .textContent=seconds;
-}
-setInterval(updateCountdown,1000);
-updateCountdown();
-/* =========================
-   SIM
-========================= */
-function yes(){
-    const final =
-        document.getElementById("final");
-    final.innerHTML=`
-        <div style="font-size:5rem">
-            ❤️
-        </div>
-        <p class="small">
-            ENTÃO É ISSO.
-        </p>
-        <h1 style="margin:20px 0">
-            Agora a gente<br>
-            continua essa história.
-        </h1>
-        <p style="font-size:1.15rem">
-            Talvez São Paulo e Santa Catarina
-            ainda estejam longe.
-            <br><br>
-            Mas agora existe um motivo
-            para diminuir essa distância.
-        </p>
-        <div style="
-            font-size:2rem;
-            margin-top:25px;
-        ">
-            🥹❤️🌹
-        </div>
-    `;
-    confetti();
-}
-/* =========================
-   CONFETE
-========================= */
-function confetti(){
-    const colors=[
-        "#ff5c91",
-        "#ffcadb",
-        "#ffffff",
-        "#00a86b",
-        "#ffd166"
-    ];
-    for(let i=0;i<120;i++){
-        setTimeout(()=>{
-            const piece =
+            const heart =
                 document.createElement("div");
-            piece.className="confetti";
-            piece.style.left =
-                Math.random()*100+"vw";
-            piece.style.background =
-                colors[
+            heart.className="floatingHeart";
+            const options=[
+                "❤️",
+                "💗",
+                "💖",
+                "💘",
+                "✨",
+                "🌹"
+            ];
+            heart.textContent=
+                options[
                     Math.floor(
-                        Math.random()*colors.length
+                        Math.random()*options.length
                     )
                 ];
-            piece.style.transform=
-                `rotate(${Math.random()*360}deg)`;
-            document.body.appendChild(piece);
+            heart.style.left=
+                Math.random()*100+"vw";
+            heart.style.fontSize=
+                (15+Math.random()*35)+"px";
+            heart.style.animationDuration=
+                (4+Math.random()*5)+"s";
+            document.body.appendChild(heart);
             setTimeout(
-                ()=>piece.remove(),
-                4500
+                ()=>heart.remove(),
+                9000
             );
-        },i*15);
+        },i*25);
     }
 }
 /* =========================
-   CORAÇÕES DE FUNDO
+   CORAÇÕES ALEATÓRIOS
 ========================= */
 setInterval(()=>{
     const heart =
         document.createElement("div");
-    heart.className="heart";
-    heart.textContent =
+    heart.className="floatingHeart";
+    heart.textContent=
         Math.random()>.5 ? "♡":"✦";
-    heart.style.left =
+    heart.style.left=
         Math.random()*100+"vw";
-    heart.style.fontSize =
-        (15+Math.random()*25)+"px";
-    heart.style.color =
+    heart.style.color=
         Math.random()>.5
-        ? "#ff5c91"
+        ? "#ff72ae"
         : "#ffffff";
+    heart.style.fontSize=
+        (12+Math.random()*20)+"px";
     document.body.appendChild(heart);
     setTimeout(
         ()=>heart.remove(),
         7000
     );
-},800);
+},1200);
 </script>
 </body>
 </html>
