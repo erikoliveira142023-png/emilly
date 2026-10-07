@@ -3,1634 +3,1345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#120b18">
 
-<title>Emily ♥</title>
+<title>Para Emily ❤️</title>
+
+<!-- MAPA REAL -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    background:
-        radial-gradient(circle at top,#351526 0%,#120b12 45%,#050509 100%);
-    color:white;
-    font-family:Georgia,serif;
-    min-height:100vh;
-    overflow-x:hidden;
+  background:
+    radial-gradient(circle at 20% 10%, #3c173f 0%, transparent 30%),
+    radial-gradient(circle at 80% 30%, #251039 0%, transparent 35%),
+    linear-gradient(135deg,#08060b,#160c19,#0a070d);
+  color:#fff;
+  font-family:'Cormorant Garamond',serif;
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* =========================
-   FUNDO
-========================= */
+/* FUNDO */
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.25;
-    background-image:
-        radial-gradient(#fff 1px,transparent 1px),
-        radial-gradient(#ff79ae 1px,transparent 1px);
-    background-size:90px 90px,140px 140px;
-    background-position:10px 20px,50px 70px;
-    z-index:-1;
+#stars{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
 }
 
-/* =========================
-   TOPO
-========================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:rgba(5,5,9,.88);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.1);
-    padding:14px;
-    text-align:center;
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:.5;
+  animation:twinkle 3s infinite ease-in-out;
 }
 
-.logo{
-    color:#ff8fbd;
-    font-family:Arial,sans-serif;
-    font-weight:bold;
-    letter-spacing:5px;
-    margin-bottom:12px;
+@keyframes twinkle{
+  0%,100%{opacity:.15;transform:scale(.7)}
+  50%{opacity:1;transform:scale(1.5)}
 }
 
-.menu{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:8px;
+.particle{
+  position:fixed;
+  pointer-events:none;
+  z-index:20;
+  animation:floatUp 4s ease-out forwards;
 }
 
-.menu button{
-    border:1px solid rgba(255,125,175,.4);
-    background:#1b1019;
-    color:white;
-    padding:10px 15px;
-    border-radius:30px;
-    cursor:pointer;
-    transition:.25s;
+@keyframes floatUp{
+  from{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-250px) scale(.2) rotate(30deg);
+    opacity:0;
+  }
 }
 
-.menu button:hover,
-.menu button.active{
-    background:#ff6fae;
-    color:#250b19;
-    transform:translateY(-2px);
-}
-
-/* =========================
-   PÁGINAS
-========================= */
-
-.page{
-    display:none;
-    max-width:1000px;
-    margin:auto;
-    padding:30px 18px 80px;
-    animation:entrada .5s ease;
-}
-
-.page.active{
-    display:block;
-}
-
-@keyframes entrada{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
-    text-align:center;
-    padding:60px 15px;
+  min-height:100vh;
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 18px;
+  text-align:center;
 }
 
-.hero small{
-    color:#ffb4d1;
-    font-family:Arial,sans-serif;
-    letter-spacing:4px;
-    text-transform:uppercase;
+.hero-content{
+  max-width:850px;
+  animation:heroIn 1.5s ease forwards;
+}
+
+@keyframes heroIn{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.small{
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#e8a9c8;
+  font-size:13px;
+  margin-bottom:18px;
 }
 
 .hero h1{
-    font-size:clamp(60px,12vw,110px);
-    font-weight:normal;
-    margin:20px 0;
-    text-shadow:0 0 35px rgba(255,70,150,.45);
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(55px,12vw,115px);
+  font-weight:600;
+  line-height:.9;
+  text-shadow:0 0 30px rgba(255,120,180,.35);
 }
 
 .hero h1 span{
-    color:#ff6fae;
+  color:#ff86bd;
 }
 
-.hero p{
-    max-width:700px;
-    margin:auto;
-    color:#d8c9d3;
-    font-size:19px;
-    line-height:1.8;
+.hero-sub{
+  margin-top:28px;
+  font-size:clamp(20px,4vw,29px);
+  color:#eadce6;
 }
 
-.heart{
-    color:#ff6fae;
-    font-size:40px;
-    margin:25px;
-    animation:pulsar 1.7s infinite;
+.scroll{
+  margin-top:50px;
+  animation:bounce 2s infinite;
+  color:#dca7c1;
+  font-size:15px;
 }
 
-@keyframes pulsar{
-    50%{
-        transform:scale(1.25);
-        text-shadow:0 0 30px #ff4b9b;
-    }
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(10px)}
 }
 
-/* =========================
-   CARDS
-========================= */
+/* CONTADOR */
 
-.card{
-    background:linear-gradient(
-        145deg,
-        rgba(37,20,31,.95),
-        rgba(12,9,14,.95)
+.section{
+  position:relative;
+  z-index:1;
+  max-width:1050px;
+  margin:auto;
+  padding:90px 18px;
+}
+
+.section-title{
+  text-align:center;
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(42px,8vw,70px);
+  color:#ff9bc7;
+  margin-bottom:12px;
+}
+
+.section-description{
+  text-align:center;
+  color:#cdb9c8;
+  font-size:19px;
+  margin-bottom:35px;
+}
+
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  max-width:800px;
+  margin:30px auto;
+}
+
+.time-box{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,145,195,.2);
+  border-radius:22px;
+  padding:25px 10px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+
+.time-number{
+  font-size:clamp(30px,7vw,55px);
+  font-weight:600;
+  color:#fff;
+}
+
+.time-label{
+  margin-top:5px;
+  color:#d4b8ca;
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+/* CARTA */
+
+.letter-wrapper{
+  perspective:1000px;
+}
+
+.letter{
+  position:relative;
+  background:
+    linear-gradient(rgba(255,248,231,.96),rgba(249,238,213,.96)),
+    repeating-linear-gradient(
+      transparent,
+      transparent 32px,
+      rgba(120,80,50,.09) 33px
     );
-
-    border:1px solid rgba(255,143,190,.18);
-    border-radius:25px;
-    padding:35px;
-    margin:20px 0;
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.35);
+  color:#3d2730;
+  border-radius:5px;
+  padding:55px clamp(22px,7vw,75px);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    inset 0 0 50px rgba(112,62,38,.08);
+  transform:rotate(-.5deg);
+  overflow:hidden;
 }
 
-.card h2{
-    font-size:clamp(30px,6vw,48px);
-    font-weight:normal;
-    margin:10px 0 20px;
+.letter:before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(100,55,45,.2);
+  pointer-events:none;
 }
 
-.card p{
-    color:#eadde5;
-    line-height:1.9;
-    font-size:17px;
+.letter-header{
+  text-align:center;
+  font-family:'Dancing Script',cursive;
+  font-size:38px;
+  margin-bottom:25px;
+  color:#7e3c58;
 }
 
-.rosa{
-    color:#ff9fc6;
+.writing-area{
+  position:relative;
+  min-height:570px;
 }
 
-.center{
-    text-align:center;
+.letter-text{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(23px,4.2vw,31px);
+  line-height:1.65;
+  white-space:pre-wrap;
 }
 
-/* =========================
-   BOTÕES
-========================= */
-
-.btn{
-    display:inline-block;
-    border:none;
-    background:linear-gradient(135deg,#ff9ac4,#ff559d);
-    color:#300b1d;
-    padding:14px 22px;
-    border-radius:30px;
-    font-weight:bold;
-    text-decoration:none;
-    cursor:pointer;
-    margin-top:20px;
-    box-shadow:0 10px 30px rgba(255,80,150,.2);
-    transition:.2s;
+.cursor{
+  display:inline-block;
+  width:2px;
+  height:1em;
+  background:#5a3941;
+  vertical-align:middle;
+  animation:blink .7s infinite;
 }
 
-.btn:hover{
-    transform:translateY(-3px) scale(1.02);
+@keyframes blink{
+  50%{opacity:0}
 }
 
-.btn.dark{
-    background:#21131e;
-    color:white;
-    border:1px solid rgba(255,140,190,.4);
+/* LÁPIS */
+
+.pencil{
+  position:absolute;
+  width:70px;
+  height:18px;
+  opacity:0;
+  transform-origin:left center;
+  pointer-events:none;
+  z-index:5;
 }
 
-/* =========================
-   TIMES
-========================= */
-
-.times{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:30px;
-    flex-wrap:wrap;
-    margin:30px 0;
+.pencil-body{
+  position:absolute;
+  left:8px;
+  top:3px;
+  width:48px;
+  height:12px;
+  background:linear-gradient(90deg,#f3b6cb,#fff,#d997b5);
+  border-radius:3px;
+  box-shadow:0 2px 3px rgba(0,0,0,.25);
 }
 
-.time{
-    text-align:center;
+.pencil-tip{
+  position:absolute;
+  left:0;
+  top:3px;
+  width:0;
+  height:0;
+  border-top:6px solid transparent;
+  border-bottom:6px solid transparent;
+  border-right:12px solid #d9c2a5;
 }
 
-.time img{
-    width:105px;
-    height:105px;
-    object-fit:contain;
-    padding:12px;
-    border-radius:22px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.1);
+.pencil-tip:after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:-2px;
+  border-top:2px solid transparent;
+  border-bottom:2px solid transparent;
+  border-right:5px solid #332426;
 }
 
-.time p{
-    font-family:Arial,sans-serif;
-    font-size:11px;
-    color:#bdaeba;
-    margin-top:8px;
+.pencil-end{
+  position:absolute;
+  right:5px;
+  top:3px;
+  width:7px;
+  height:12px;
+  background:#d07e9f;
 }
 
-.vs{
-    color:#ff82b7;
-    font-style:italic;
+/* CORAÇÃO */
+
+.big-heart{
+  text-align:center;
+  font-size:55px;
+  margin-top:30px;
+  animation:heartBeat 1.4s infinite;
 }
 
-/* =========================
-   CARTA
-========================= */
-
-.carta{
-    font-size:19px;
-    line-height:2;
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}
+  15%{transform:scale(1.18)}
+  30%{transform:scale(1)}
+  45%{transform:scale(1.12)}
 }
 
-.carta p{
-    margin-bottom:20px;
+/* MAPA */
+
+.map-card{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,160,200,.18);
+  padding:12px;
+  border-radius:25px;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
-.frase{
-    border-left:3px solid #ff6fae;
-    padding:10px 20px;
-    margin:30px 0;
-    color:#ffb4d2;
-    font-size:24px;
-    font-style:italic;
-    line-height:1.6;
+#map{
+  height:470px;
+  width:100%;
+  border-radius:18px;
+  overflow:hidden;
 }
 
-/* =========================
-   CONTAGEM
-========================= */
-
-.contagem{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin:30px 0;
+.map-info{
+  padding:18px 8px 8px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-.numero{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,140,190,.25);
-    border-radius:18px;
-    padding:20px 5px;
-    text-align:center;
+.route-item{
+  flex:1;
+  min-width:180px;
+  text-align:center;
 }
 
-.numero strong{
-    display:block;
-    color:#ff9fc6;
-    font-family:Arial,sans-serif;
-    font-size:clamp(28px,6vw,48px);
+.route-item strong{
+  display:block;
+  font-size:22px;
+  color:#ff9bc7;
 }
 
-.numero span{
-    color:#bdaeba;
-    font-family:Arial,sans-serif;
-    font-size:10px;
-    letter-spacing:2px;
+.route-item span{
+  color:#cbb8c7;
 }
 
-/* =========================
-   MAPA
-========================= */
+/* SURPRESA */
 
-.mapa{
-    width:100%;
-    height:420px;
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid rgba(255,130,180,.3);
-    margin-top:25px;
+.love-card{
+  text-align:center;
+  max-width:700px;
+  margin:auto;
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,80,160,.04));
+  border:1px solid rgba(255,150,200,.2);
+  padding:45px 25px;
+  border-radius:30px;
+  box-shadow:0 30px 90px rgba(0,0,0,.3);
 }
 
-.mapafake{
-    position:relative;
-    height:100%;
-    background:
-        linear-gradient(135deg,#19151c,#28202b);
-    overflow:hidden;
+.lock{
+  font-size:75px;
+  margin-bottom:20px;
+  transition:.5s;
 }
 
-.brasil{
-    position:absolute;
-    width:70%;
-    height:75%;
-    left:15%;
-    top:12%;
-    border-radius:50% 35% 45% 40%;
-    background:#26362d;
-    transform:rotate(-12deg);
-    opacity:.8;
+.lock.open{
+  transform:rotate(-15deg) scale(1.2);
 }
 
-.rota{
-    position:absolute;
-    width:65%;
-    height:4px;
-    background:#ff6fae;
-    left:18%;
-    top:49%;
-    transform:rotate(18deg);
-    box-shadow:0 0 12px #ff6fae;
+.surprise-text{
+  font-family:'Dancing Script',cursive;
+  font-size:31px;
+  color:#ffb0d0;
+  margin-bottom:25px;
 }
 
-.ponto{
-    position:absolute;
-    width:20px;
-    height:20px;
-    background:#ff6fae;
-    border-radius:50%;
-    box-shadow:0 0 20px #ff6fae;
+button{
+  border:0;
+  padding:14px 23px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff5fa7,#c93e79);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(255,70,150,.25);
+  transition:.25s;
 }
 
-.ponto.eu{
-    left:23%;
-    top:43%;
+button:hover{
+  transform:translateY(-3px) scale(1.03);
 }
 
-.ponto.ela{
-    right:23%;
-    top:63%;
+#surprise{
+  display:none;
+  margin-top:30px;
+  font-family:'Dancing Script',cursive;
+  font-size:27px;
+  line-height:1.5;
+  color:#ffe4ef;
 }
 
-.label{
-    position:absolute;
-    background:#100b10dd;
-    border:1px solid rgba(255,140,190,.4);
-    padding:8px 12px;
-    border-radius:10px;
-    font-family:Arial,sans-serif;
-    font-size:12px;
+/* MÚSICA */
+
+.music{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:100;
 }
 
-.label.eu{
-    left:15%;
-    top:34%;
+.music button{
+  width:58px;
+  height:58px;
+  padding:0;
+  border-radius:50%;
+  font-size:23px;
 }
 
-.label.ela{
-    right:12%;
-    top:68%;
+/* FINAL */
+
+.final{
+  text-align:center;
+  padding:100px 20px 60px;
 }
 
-/* =========================
-   MEMÓRIAS
-========================= */
-
-.memoria-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+.final p{
+  color:#cbb8c7;
+  font-size:17px;
 }
 
-.memoria{
-    padding:22px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,140,190,.2);
-    border-radius:20px;
+.final-name{
+  font-family:'Dancing Script',cursive;
+  font-size:55px;
+  color:#ff91c1;
+  margin-top:15px;
 }
 
-.memoria b{
-    display:block;
-    color:#ff9fc6;
-    margin-bottom:10px;
-}
-
-/* =========================
-   MÚSICA
-========================= */
-
-.music-btn{
-    position:fixed;
-    right:15px;
-    bottom:15px;
-    z-index:200;
-    border:none;
-    border-radius:50px;
-    padding:13px 17px;
-    background:#ff6fae;
-    color:#280b19;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 8px 30px rgba(255,60,140,.35);
-}
-
-/* =========================
-   CORAÇÕES
-========================= */
-
-.coracao{
-    position:fixed;
-    bottom:-40px;
-    color:#ff78b0;
-    pointer-events:none;
-    z-index:150;
-    animation:subir 5s linear forwards;
-}
-
-@keyframes subir{
-    to{
-        transform:translateY(-110vh) rotate(30deg);
-        opacity:0;
-    }
-}
-
-/* =========================
-   RODAPÉ
-========================= */
-
-footer{
-    text-align:center;
-    color:#9d8998;
-    font-family:Arial,sans-serif;
-    font-size:12px;
-    padding:40px 15px;
-}
-
-/* =========================
-   CELULAR
-========================= */
+/* RESPONSIVO */
 
 @media(max-width:650px){
+  .countdown{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-    .card{
-        padding:23px;
-    }
+  #map{
+    height:380px;
+  }
 
-    .contagem{
-        gap:6px;
-    }
+  .letter{
+    padding:45px 25px;
+  }
 
-    .numero{
-        padding:15px 3px;
-    }
-
-    .memoria-grid{
-        grid-template-columns:1fr;
-    }
-
-    .times{
-        gap:15px;
-    }
-
-    .time img{
-        width:80px;
-        height:80px;
-    }
-
-    .mapa{
-        height:350px;
-    }
+  .letter-text{
+    font-size:24px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<div id="stars"></div>
 
-    <div class="logo">
-        EMILY ♥
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="small">uma história que começou há pouco tempo</div>
+
+    <h1>Emily <span>♥</span></h1>
+
+    <p class="hero-sub">
+      Algumas pessoas chegam devagar...<br>
+      e, quando a gente percebe, já se tornaram especiais.
+    </p>
+
+    <div class="scroll">
+      ↓ desce devagar... eu preparei isso pra você ↓
     </div>
 
-    <div class="menu">
-
-        <button class="active" onclick="pagina('inicio',this)">
-            Início
-        </button>
-
-        <button onclick="pagina('carta',this)">
-            💌 Carta
-        </button>
-
-        <button onclick="pagina('mapa',this)">
-            🗺️ Nosso mapa
-        </button>
-
-        <button onclick="pagina('contagem',this)">
-            ⏳ Contagem
-        </button>
-
-        <button onclick="pagina('memorias',this)">
-            ✨ Nosso cantinho
-        </button>
-
-    </div>
-
-</header>
-
-
-<!-- =========================
-     INÍCIO
-========================= -->
-
-<section id="inicio" class="page active">
-
-    <div class="hero">
-
-        <small>
-            feito especialmente para você
-        </small>
-
-        <h1>
-            Emily<span>♥</span>
-        </h1>
-
-        <p>
-            Talvez a gente tenha escolhido lados diferentes no futebol...
-            mas tem coisas que não precisam de torcida, campeonato ou distância.
-            Algumas simplesmente acontecem.
-        </p>
-
-        <div class="heart">
-            ♡
-        </div>
-
-        <button class="btn" onclick="pagina('carta')">
-            Abrir minha carta para você 💌
-        </button>
-
-    </div>
-
-
-    <div class="card center">
-
-        <small class="rosa">
-            PALMEIRAS × CORINTHIANS
-        </small>
-
-        <h2>
-            O casal mais improvável do futebol 😂
-        </h2>
-
-        <p>
-            Eu sou palmeirense porra 💚🤍
-            e você é corinthiana 🖤🤍.
-            A rivalidade fica no futebol.
-            Aqui dentro desse site é só carinho.
-        </p>
-
-
-        <div class="times">
-
-            <div class="time">
-
-                <img
-                src="https://upload.wikimedia.org/wikipedia/commons/1/10/Palmeiras_logo.svg"
-                alt="Palmeiras">
-
-                <p>
-                    SEU PALMEIRENSE
-                </p>
-
-            </div>
-
-
-            <div class="vs">
-                ♥
-            </div>
-
-
-            <div class="time">
-
-                <img
-                src="https://upload.wikimedia.org/wikipedia/en/5/5a/Sport_Club_Corinthians_Paulista_crest.svg"
-                alt="Corinthians">
-
-                <p>
-                    SUA CORINTHIANA
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <button class="btn dark"
-        onclick="pagina('mapa')">
-
-            Ver nosso caminho 🗺️
-
-        </button>
-
-    </div>
-
-
-    <div class="card center">
-
-        <h2>
-            Fiz isso pensando em você.
-        </h2>
-
-        <p>
-            Não é só uma página.
-            É um pequeno lugar onde eu coloquei palavras,
-            lembranças, uma contagem regressiva,
-            nosso mapa e um monte de carinho.
-        </p>
-
-        <button class="btn"
-        onclick="pagina('contagem')">
-
-            Ver a contagem ⏳
-
-        </button>
-
-    </div>
+  </div>
 
 </section>
 
 
+<!-- CONTAGEM DO TEMPO CONVERSANDO -->
+<section class="section">
 
-<!-- =========================
-     CARTA
-========================= -->
+  <h2 class="section-title">Desde que nossas conversas começaram...</h2>
 
-<section id="carta" class="page">
+  <p class="section-description">
+    Já se passaram exatamente <strong>5 dias e 16 horas</strong>.
+    E olha o tanto que você já conseguiu significar pra mim.
+  </p>
 
-    <div class="card">
+  <div class="countdown">
 
-        <small class="rosa">
-            ABRA COM CALMA
-        </small>
-
-        <h2>
-            Uma carta para Emily 💌
-        </h2>
-
-
-        <div class="carta">
-
-            <p>
-                Emily,
-            </p>
-
-
-            <p>
-                Eu nem sei exatamente por onde começar,
-                porque quando o assunto é você parece que
-                qualquer palavra fica pequena perto de tudo
-                que eu gostaria de falar.
-            </p>
-
-
-            <p>
-                Mesmo assim, eu quis fazer isso.
-                Quis criar um lugar que fosse diferente de
-                simplesmente mandar uma mensagem no celular.
-                Queria que você pudesse abrir uma página,
-                clicar em cada coisa e perceber que eu realmente
-                parei um tempo para fazer algo pensando em você.
-            </p>
-
-
-            <p>
-                Às vezes é estranho pensar como alguém que está
-                tão longe pode acabar ficando tão presente.
-                A distância coloca quilômetros entre duas pessoas,
-                mas não consegue impedir uma conversa,
-                uma risada, uma mensagem inesperada ou aquele
-                pensamento que aparece do nada.
-            </p>
-
-
-            <div class="frase">
-
-                “A distância consegue separar dois lugares.
-                Não consegue medir o carinho entre duas pessoas.”
-
-            </div>
-
-
-            <p>
-                Eu gosto da ideia de ir conhecendo você aos poucos.
-                Conhecer suas manias, suas histórias, as coisas que
-                fazem você rir, os assuntos aleatórios e até aquelas
-                pequenas coisas que talvez você nem perceba que são
-                especiais.
-            </p>
-
-
-            <p>
-                Eu não quero que tudo precise ser perfeito.
-                Na verdade, acho que o mais bonito é justamente
-                poder ser verdadeiro.
-                Poder conversar quando estiver tudo bem,
-                poder falar quando alguma coisa incomodar,
-                poder rir das coisas bobas e simplesmente
-                continuar conhecendo um ao outro.
-            </p>
-
-
-            <p>
-                E claro que existe uma coisa impossível de ignorar:
-                eu sou palmeirense e você é corinthiana.
-                😂
-            </p>
-
-
-            <p>
-                Isso provavelmente significa que metade das nossas
-                conversas vai acabar em provocação de futebol.
-                Mas tudo bem.
-                Eu aceito esse pequeno sofrimento.
-            </p>
-
-
-            <p>
-                No final das contas, seu time é seu time e o meu
-                é o meu.
-                Eu prefiro muito mais ver você sorrindo do que
-                ganhar qualquer discussão sobre futebol.
-            </p>
-
-
-            <p>
-                Eu também não quero te prometer um conto de fadas.
-                A vida real não funciona assim.
-                Existem dias bons, dias ruins, momentos confusos
-                e coisas que a gente ainda nem sabe como vão acontecer.
-            </p>
-
-
-            <p>
-                O que eu posso querer é algo muito mais simples:
-                sinceridade, respeito, carinho, conversa e vontade
-                de continuar conhecendo você sem pressa.
-            </p>
-
-
-            <p>
-                E se algum dia a gente estiver frente a frente,
-                depois de toda essa distância,
-                eu espero que aquele momento seja especial justamente
-                porque finalmente vamos poder olhar um para o outro
-                e pensar:
-            </p>
-
-
-            <div class="frase">
-
-                “Finalmente.”
-
-            </div>
-
-
-            <p>
-                Quero que seja um momento leve.
-                Um momento seguro, tranquilo e bonito.
-                Uma lembrança que a gente possa guardar porque
-                aconteceu do jeito certo.
-            </p>
-
-
-            <p>
-                Fiz esse site porque queria que você tivesse algo
-                para abrir e pensar:
-                “Ele realmente fez isso para mim.”
-            </p>
-
-
-            <p>
-                Cada página existe por um motivo.
-                A carta porque algumas coisas merecem ser escritas.
-                O mapa porque existe uma distância real entre nós.
-                A contagem porque esperar também faz parte da história.
-                E as pequenas memórias porque são elas que acabam
-                fazendo os momentos simples ficarem importantes.
-            </p>
-
-
-            <p>
-                Obrigado por fazer parte dos meus dias.
-                Obrigado pelas conversas, pelas risadas,
-                pelas mensagens e pelos momentos que,
-                mesmo sendo pequenos, acabam significando muito.
-            </p>
-
-
-            <p>
-                Espero que quando você terminar de ler isso,
-                pelo menos um sorriso apareça no seu rosto.
-                Se aparecer, então já valeu a pena.
-            </p>
-
-
-            <p>
-                Cuida de você, tá?
-                E nunca esquece que você merece carinho,
-                respeito, sinceridade e alguém que valorize
-                quem você realmente é.
-            </p>
-
-
-            <p>
-                Talvez a distância ainda seja grande.
-                Talvez ainda existam muitas coisas para acontecer.
-                Mas não precisa existir pressa.
-            </p>
-
-
-            <p>
-                Cada conversa pode ser um pequeno pedaço do caminho.
-            </p>
-
-
-            <p>
-                E eu espero continuar caminhando.
-            </p>
-
-
-            <p class="rosa">
-                Com carinho,
-            </p>
-
-
-            <p class="rosa">
-
-                <strong>
-                    Seu palmeirense 💚🤍
-                </strong>
-
-            </p>
-
-        </div>
-
-
-        <div class="center">
-
-            <button
-            class="btn"
-            onclick="pagina('mapa')">
-
-                Ver nosso mapa 🗺️
-
-            </button>
-
-        </div>
-
+    <div class="time-box">
+      <div class="time-number">5</div>
+      <div class="time-label">Dias</div>
     </div>
+
+    <div class="time-box">
+      <div class="time-number">16</div>
+      <div class="time-label">Horas</div>
+    </div>
+
+    <div class="time-box">
+      <div class="time-number">00</div>
+      <div class="time-label">Minutos</div>
+    </div>
+
+    <div class="time-box">
+      <div class="time-number">00</div>
+      <div class="time-label">Segundos</div>
+    </div>
+
+  </div>
 
 </section>
 
 
+<!-- CARTA -->
+<section class="section">
 
-<!-- =========================
-     MAPA
-========================= -->
+  <h2 class="section-title">Uma carta para você</h2>
 
-<section id="mapa" class="page">
+  <p class="section-description">
+    Espere alguns segundos... alguém está escrevendo.
+  </p>
 
-    <div class="card">
+  <div class="letter-wrapper">
 
-        <small class="rosa">
-            MESMO LONGE
-        </small>
+    <div class="letter">
 
-        <h2>
-            Onde nossos caminhos se encontram 🗺️
-        </h2>
+      <div class="letter-header">
+        Para Emily, com carinho — Erik
+      </div>
 
-        <p>
-            Aqui está uma representação visual da distância.
-            Você pode trocar os nomes das cidades no código
-            pelas cidades reais de vocês.
-        </p>
+      <div class="writing-area">
 
-
-        <div class="mapa">
-
-            <div class="mapafake">
-
-                <div class="brasil"></div>
-
-                <div class="rota"></div>
-
-
-                <div class="ponto eu"></div>
-
-                <div class="ponto ela"></div>
-
-
-                <div class="label eu">
-
-                    💚 Seu palmeirense
-
-                </div>
-
-
-                <div class="label ela">
-
-                    🖤🤍 Emily
-
-                </div>
-
-            </div>
-
+        <div class="pencil" id="pencil">
+          <div class="pencil-tip"></div>
+          <div class="pencil-body"></div>
+          <div class="pencil-end"></div>
         </div>
 
+        <div id="letterText" class="letter-text"></div>
 
-        <div class="center">
+      </div>
 
-            <p style="margin-top:20px">
-
-                📍 São Paulo
-                <br>
-                ↓
-                <br>
-                💗
-                <br>
-                ↓
-                <br>
-                📍 Santa Catarina
-
-            </p>
-
-
-            <a
-            class="btn"
-            target="_blank"
-            href="https://www.google.com/maps/dir/S%C3%A3o+Paulo,+SP/Florian%C3%B3polis,+SC/">
-
-                Abrir rota no Google Maps ↗
-
-            </a>
-
-        </div>
+      <div class="big-heart">♥</div>
 
     </div>
+
+  </div>
 
 </section>
 
 
+<!-- CONTAGEM REGRESSIVA -->
+<section class="section">
 
-<!-- =========================
-     CONTAGEM
-========================= -->
+  <h2 class="section-title">Até o nosso primeiro encontro</h2>
 
-<section id="contagem" class="page">
+  <p class="section-description">
+    Um dia que eu já estou contando antes mesmo de chegar.
+  </p>
 
-    <div class="card center">
+  <div class="countdown" id="realCountdown">
 
-        <small class="rosa">
-            CADA SEGUNDO CONTA
-        </small>
-
-        <h2>
-            Até o nosso dia ⏳
-        </h2>
-
-        <p>
-            A contagem abaixo está usando uma data de exemplo.
-            É só trocar a data no campo.
-        </p>
-
-
-        <div class="contagem">
-
-            <div class="numero">
-
-                <strong id="dias">
-                    00
-                </strong>
-
-                <span>
-                    DIAS
-                </span>
-
-            </div>
-
-
-            <div class="numero">
-
-                <strong id="horas">
-                    00
-                </strong>
-
-                <span>
-                    HORAS
-                </span>
-
-            </div>
-
-
-            <div class="numero">
-
-                <strong id="minutos">
-                    00
-                </strong>
-
-                <span>
-                    MINUTOS
-                </span>
-
-            </div>
-
-
-            <div class="numero">
-
-                <strong id="segundos">
-                    00
-                </strong>
-
-                <span>
-                    SEGUNDOS
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <input
-        id="data"
-        type="datetime-local"
-        style="
-        padding:12px;
-        border-radius:12px;
-        border:1px solid #ff8dbd66;
-        background:#170f19;
-        color:white;
-        ">
-
-
-        <br>
-
-
-        <button
-        class="btn"
-        onclick="alterarData()">
-
-            Atualizar contagem ❤️
-
-        </button>
-
+    <div class="time-box">
+      <div class="time-number" id="days">--</div>
+      <div class="time-label">Dias</div>
     </div>
+
+    <div class="time-box">
+      <div class="time-number" id="hours">--</div>
+      <div class="time-label">Horas</div>
+    </div>
+
+    <div class="time-box">
+      <div class="time-number" id="minutes">--</div>
+      <div class="time-label">Minutos</div>
+    </div>
+
+    <div class="time-box">
+      <div class="time-number" id="seconds">--</div>
+      <div class="time-label">Segundos</div>
+    </div>
+
+  </div>
+
+  <p style="
+    text-align:center;
+    color:#e8bfd2;
+    font-size:21px;
+    margin-top:25px;
+  ">
+    📍 Guarulhos, SP → Santa Catarina
+  </p>
 
 </section>
 
 
+<!-- MAPA -->
+<section class="section">
 
-<!-- =========================
-     MEMÓRIAS
-========================= -->
+  <h2 class="section-title">Dois lugares. Um encontro.</h2>
 
-<section id="memorias" class="page">
+  <p class="section-description">
+    Porque distância é só distância quando existe vontade de chegar.
+  </p>
 
-    <div class="card">
+  <div class="map-card">
 
-        <small class="rosa">
-            PEQUENAS COISAS
-        </small>
+    <div id="map"></div>
 
-        <h2>
-            Nosso cantinho ✨
-        </h2>
+    <div class="map-info">
 
-        <p>
-            Porque às vezes não são os momentos gigantes
-            que ficam na memória.
-            São as pequenas coisas.
-        </p>
+      <div class="route-item">
+        <strong>📍 Guarulhos</strong>
+        <span>São Paulo</span>
+      </div>
 
+      <div class="route-item">
+        <strong>♥</strong>
+        <span>~710 km de estrada</span>
+      </div>
 
-        <div class="memoria-grid">
-
-
-            <div class="memoria">
-
-                <b>
-                    💬 As conversas
-                </b>
-
-                As mensagens que fazem a gente sorrir
-                olhando para a tela.
-
-            </div>
-
-
-            <div class="memoria">
-
-                <b>
-                    😂 As risadas
-                </b>
-
-                Aquelas conversas que começam normais
-                e terminam em uma besteira qualquer.
-
-            </div>
-
-
-            <div class="memoria">
-
-                <b>
-                    ⚽ A rivalidade
-                </b>
-
-                Palmeiras x Corinthians.
-                Uma guerra que provavelmente nunca vai acabar. 😂
-
-            </div>
-
-
-            <div class="memoria">
-
-                <b>
-                    🗺️ A distância
-                </b>
-
-                Um mapa consegue medir quilômetros.
-                Mas não consegue medir carinho.
-
-            </div>
-
-
-            <div class="memoria">
-
-                <b>
-                    🌙 Os dias difíceis
-                </b>
-
-                Também existe carinho em saber ouvir,
-                respeitar e ter paciência.
-
-            </div>
-
-
-            <div class="memoria">
-
-                <b>
-                    💌 O próximo capítulo
-                </b>
-
-                Continuar se conhecendo,
-                sem pressa e sem fingimento.
-
-            </div>
-
-        </div>
-
-
-        <div class="center">
-
-            <button
-            class="btn"
-            onclick="coracoes()">
-
-                Mandar carinho 💗
-
-            </button>
-
-        </div>
+      <div class="route-item">
+        <strong>📍 Florianópolis</strong>
+        <span>Santa Catarina</span>
+      </div>
 
     </div>
+
+  </div>
 
 </section>
 
 
+<!-- SURPRESA -->
+<section class="section">
 
-<footer>
+  <h2 class="section-title">Tem mais uma coisa...</h2>
 
-    Feito com carinho pelo seu palmeirense 💚🤍
+  <div class="love-card">
 
-    <br><br>
+    <div class="lock" id="lock">
+      🔒
+    </div>
 
-    Para Emily, com carinho. ♥
+    <div class="surprise-text">
+      Essa surpresa está reservada para ser entregue pessoalmente.
+    </div>
 
-</footer>
+    <button onclick="openSurprise()">
+      🔐 Abrir a surpresa
+    </button>
+
+    <div id="surprise">
+      <p>
+        Emily...
+      </p>
+
+      <br>
+
+      <p>
+        Talvez você ainda não tenha ideia do quanto esses poucos dias
+        mudaram meus pensamentos.
+      </p>
+
+      <br>
+
+      <p>
+        E talvez seja justamente isso que torna tudo tão bonito.
+      </p>
+
+      <br>
+
+      <p>
+        Eu não quero prometer que tudo será perfeito.
+        Quero apenas prometer que, se você quiser,
+        eu vou tentar fazer dar certo.
+      </p>
+
+      <br>
+
+      <p>
+        Mesmo com a distância.
+        Mesmo com os dias difíceis.
+        Mesmo quando bater saudade.
+      </p>
+
+      <br>
+
+      <p style="color:#ff9bc7;font-size:34px;">
+        Eu quero viver isso com você. ❤️
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
 
 
+<!-- FINAL -->
+<section class="final">
 
-<!-- =========================
-     BOTÃO DE MÚSICA
-========================= -->
+  <p>
+    Feito especialmente para uma pessoa que chegou há pouco tempo...
+    mas já ocupa um lugar enorme.
+  </p>
 
-<button
-class="music-btn"
-id="musicButton"
-onclick="musica()">
+  <div class="final-name">
+    Erik ❤️ Emily
+  </div>
 
-    ♫ Ligar música
+  <p style="margin-top:25px;">
+    17 de novembro de 2026
+  </p>
 
-</button>
+</section>
 
 
+<!-- BOTÃO DA MÚSICA -->
+<div class="music">
+
+  <button id="musicButton" onclick="toggleMusic()">
+    ♫
+  </button>
+
+</div>
+
+
+<!-- LEAFLET -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
 /* =========================
-   TROCAR PÁGINAS
+   ESTRELAS
 ========================= */
 
-function pagina(nome,botao){
+const stars = document.getElementById("stars");
 
-    document.querySelectorAll(".page")
-    .forEach(function(page){
+for(let i=0;i<130;i++){
 
-        page.classList.remove("active");
+  const star=document.createElement("div");
 
-    });
+  star.className="star";
 
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*100+"%";
 
-    document.getElementById(nome)
-    .classList.add("active");
+  star.style.animationDelay=(Math.random()*4)+"s";
 
-
-    document.querySelectorAll(".menu button")
-    .forEach(function(btn){
-
-        btn.classList.remove("active");
-
-    });
-
-
-    if(botao){
-
-        botao.classList.add("active");
-
-    }
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
+  stars.appendChild(star);
 }
-
 
 
 /* =========================
-   CONTAGEM
+   CARTA SENDO ESCRITA
 ========================= */
 
-let dataFinal =
-new Date("2026-11-14T18:00:00");
+const letter = `Emily,
+
+Eu nem sei exatamente como começar essa carta, porque parece estranho pensar que faz só 5 dias e 16 horas que nossas conversas começaram.
+
+Cinco dias.
+
+Pouco tempo para algumas pessoas.
+
+Mas, para mim, foi tempo suficiente para você se tornar alguém muito especial.
+
+Às vezes a gente passa meses conhecendo alguém e não sente nem metade da conexão que pode sentir em poucos dias. E foi exatamente isso que aconteceu comigo.
+
+Você chegou de um jeito inesperado e, quando percebi, já estava esperando suas mensagens, pensando em você durante o dia e imaginando como vai ser quando finalmente estivermos frente a frente.
+
+E o mais bonito de tudo é saber que daqui a pouco isso deixa de ser apenas conversa.
+
+Daqui a um mês, nós vamos nos ver pela primeira vez.
+
+De verdade.
+
+Sem tela.
+
+Sem distância.
+
+Sem precisar imaginar como seria.
+
+Eu vou poder olhar para você e finalmente conhecer pessoalmente a pessoa que, em tão pouco tempo, conseguiu ocupar um espaço tão especial dentro de mim.
+
+Eu sei que existe distância entre nós.
+
+Guarulhos de um lado.
+
+Santa Catarina do outro.
+
+Mas eu não quero que quilômetros decidam por nós.
+
+Se depender de mim, a distância nunca vai ser maior do que a vontade de fazer dar certo.
+
+Eu não sei exatamente o que o futuro reserva para nós.
+
+Não sei quantas coisas vão acontecer até aquele dia.
+
+Não sei quais dificuldades podem aparecer.
+
+Mas sei de uma coisa:
+
+Eu quero tentar.
+
+Quero conhecer você cada vez mais.
+
+Quero construir alguma coisa verdadeira.
+
+Quero poder olhar para trás e lembrar que, naquele começo, nós dois decidimos não deixar a distância acabar com algo que poderia ser bonito.
+
+E talvez seja cedo demais para falar tudo isso.
+
+Talvez seja.
+
+Mas eu prefiro ser sincero.
+
+Porque você se tornou importante para mim rápido demais para eu fingir que não sinto nada.
+
+Eu gosto das nossas conversas.
+
+Gosto da forma como você consegue deixar meus dias diferentes.
+
+Gosto de imaginar o nosso primeiro encontro.
+
+E, principalmente, gosto da possibilidade de isso ser só o começo.
+
+Daqui a alguns dias, vai existir apenas mais um número na nossa contagem.
+
+Depois outro.
+
+E outro.
+
+Até chegar o dia em que o contador finalmente vai chegar ao zero.
+
+E quando isso acontecer, eu espero que a gente esteja no mesmo lugar.
+
+Juntos.
+
+Pessoalmente.
+
+E talvez naquele momento eu nem consiga falar tudo que escrevi aqui.
+
+Então deixo registrado.
+
+Emily, eu quero que dê certo.
+
+Mesmo com a distância.
+
+Mesmo com a saudade.
+
+Mesmo com tudo que ainda não sabemos.
+
+Eu quero tentar com você.
+
+Porque, em apenas alguns dias, você deixou de ser apenas alguém com quem eu conversava...
+
+e se tornou alguém que eu realmente quero ter por perto.
+
+Então guarda essa carta.
+
+Porque ela é só o começo.
+
+O resto eu quero contar pessoalmente.
+
+Com carinho,
+
+Erik ❤️`;
 
 
-document.getElementById("data").value =
-"2026-11-14T18:00";
+const textElement=document.getElementById("letterText");
+const pencil=document.getElementById("pencil");
 
+let index=0;
 
-function contador(){
+function typeLetter(){
 
-    let agora =
-    new Date().getTime();
+  if(index < letter.length){
 
+    textElement.innerHTML =
+      letter.substring(0,index+1)
+      .replace(/\n/g,"<br>") +
+      '<span class="cursor"></span>';
 
-    let distancia =
-    dataFinal.getTime()-agora;
+    index++;
 
+    /* pequeno movimento do lápis */
+    const progress=index/letter.length;
 
-    if(distancia<=0){
+    pencil.style.opacity="1";
 
-        document.getElementById("dias").innerText="00";
-        document.getElementById("horas").innerText="00";
-        document.getElementById("minutos").innerText="00";
-        document.getElementById("segundos").innerText="00";
+    pencil.style.left=
+      (Math.sin(progress*35)*2+Math.min(progress*85,85))+"%";
 
-        return;
-    }
+    pencil.style.top=
+      (Math.min(progress*85,85))+"%";
 
+    setTimeout(typeLetter,25);
 
-    let dias =
-    Math.floor(
-        distancia/(1000*60*60*24)
-    );
+  }else{
 
+    pencil.style.opacity="0";
 
-    let horas =
-    Math.floor(
-        (distancia%(1000*60*60*24))
-        /(1000*60*60)
-    );
+    textElement.innerHTML =
+      letter.replace(/\n/g,"<br>");
 
-
-    let minutos =
-    Math.floor(
-        (distancia%(1000*60*60))
-        /(1000*60)
-    );
-
-
-    let segundos =
-    Math.floor(
-        (distancia%(1000*60))
-        /1000
-    );
-
-
-    document.getElementById("dias")
-    .innerText=dias;
-
-
-    document.getElementById("horas")
-    .innerText=
-    String(horas).padStart(2,"0");
-
-
-    document.getElementById("minutos")
-    .innerText=
-    String(minutos).padStart(2,"0");
-
-
-    document.getElementById("segundos")
-    .innerText=
-    String(segundos).padStart(2,"0");
-
+    createHeartBurst();
+  }
 }
 
-
-setInterval(contador,1000);
-
-contador();
-
-
-
-function alterarData(){
-
-    let valor =
-    document.getElementById("data").value;
-
-
-    if(!valor){
-
-        return;
-
-    }
-
-
-    dataFinal =
-    new Date(valor);
-
-
-    contador();
-
-}
-
+setTimeout(typeLetter,1800);
 
 
 /* =========================
-   MÚSICA
+   CONTADOR DO ENCONTRO
 ========================= */
 
-let audio;
-let tocando=false;
-let intervalo;
+/*
+   DATA DO PRIMEIRO ENCONTRO:
+   17 DE NOVEMBRO DE 2026
+*/
 
-let notas=[
-    523.25,
-    659.25,
-    783.99,
-    659.25,
-    587.33,
-    698.46,
-    880,
-    698.46,
-    523.25,
-    659.25,
-    783.99,
-    1046.50,
-    880,
-    783.99,
-    659.25,
-    587.33
+const meetingDate =
+  new Date("2026-11-17T18:00:00-03:00");
+
+function updateCountdown(){
+
+  const now=new Date();
+
+  let diff=meetingDate-now;
+
+  if(diff<=0){
+
+    document.getElementById("days").textContent="0";
+    document.getElementById("hours").textContent="0";
+    document.getElementById("minutes").textContent="0";
+    document.getElementById("seconds").textContent="0";
+
+    document.querySelector("#realCountdown")
+      .insertAdjacentHTML(
+        "afterend",
+        '<p style="text-align:center;color:#ff9bc7;font-size:30px;font-family:Dancing Script,cursive;margin-top:25px;">Chegou o nosso dia. ❤️</p>'
+      );
+
+    return;
+  }
+
+  const days=Math.floor(diff/(1000*60*60*24));
+
+  diff%=1000*60*60*24;
+
+  const hours=Math.floor(diff/(1000*60*60));
+
+  diff%=1000*60*60;
+
+  const minutes=Math.floor(diff/(1000*60));
+
+  const seconds=Math.floor((diff%(1000*60))/1000);
+
+  document.getElementById("days").textContent=
+    String(days).padStart(2,"0");
+
+  document.getElementById("hours").textContent=
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").textContent=
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").textContent=
+    String(seconds).padStart(2,"0");
+}
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+
+/* =========================
+   MAPA REAL
+========================= */
+
+/*
+   Guarulhos
+*/
+const guarulhos=[-23.4545,-46.5333];
+
+/*
+   Florianópolis
+*/
+const floripa=[-27.5949,-48.5482];
+
+const map=L.map("map",{
+  zoomControl:true
+}).setView([-25.5,-47.5],6);
+
+L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+    maxZoom:19,
+    attribution:
+      '&copy; OpenStreetMap contributors'
+  }
+).addTo(map);
+
+
+/* Ícones */
+
+const startIcon=L.divIcon({
+  className:"",
+  html:`
+    <div style="
+      background:#ff5fa7;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:17px;
+      box-shadow:0 0 25px rgba(255,70,150,.7);
+      border:3px solid white;
+    ">♥</div>
+  `,
+  iconSize:[34,34],
+  iconAnchor:[17,17]
+});
+
+
+L.marker(guarulhos,{icon:startIcon})
+  .addTo(map)
+  .bindPopup("<b>❤️ Erik</b><br>Guarulhos — SP");
+
+
+L.marker(floripa,{icon:startIcon})
+  .addTo(map)
+  .bindPopup("<b>❤️ Emily</b><br>Santa Catarina");
+
+
+/*
+   Linha da viagem
+*/
+
+const route=[
+  guarulhos,
+
+  [-23.55,-46.63],
+  [-24.00,-47.85],
+  [-24.50,-48.15],
+  [-25.40,-49.25],
+  [-26.30,-48.85],
+  [-26.90,-48.65],
+  floripa
 ];
 
-let notaAtual=0;
+const line=L.polyline(route,{
+  color:"#ff5fa7",
+  weight:5,
+  opacity:.9,
+  dashArray:"12 10"
+}).addTo(map);
+
+map.fitBounds(line.getBounds(),{
+  padding:[35,35]
+});
 
 
-function tocarNota(){
+/* coração viajando pelo mapa */
 
-    if(!audio || !tocando){
+let marker=L.circleMarker(guarulhos,{
+  radius:7,
+  color:"#fff",
+  fillColor:"#ff5fa7",
+  fillOpacity:1,
+  weight:2
+}).addTo(map);
 
-        return;
+let routeIndex=0;
 
-    }
+function animateRoute(){
 
+  routeIndex++;
 
-    let oscilador =
-    audio.createOscillator();
+  if(routeIndex>=route.length){
+    routeIndex=0;
+  }
 
-
-    let ganho =
-    audio.createGain();
-
-
-    oscilador.type="sine";
-
-
-    oscilador.frequency.value =
-    notas[notaAtual%notas.length];
-
-
-    notaAtual++;
-
-
-    ganho.gain.setValueAtTime(
-        0.001,
-        audio.currentTime
-    );
-
-
-    ganho.gain.exponentialRampToValueAtTime(
-        0.06,
-        audio.currentTime+0.04
-    );
-
-
-    ganho.gain.exponentialRampToValueAtTime(
-        0.001,
-        audio.currentTime+0.5
-    );
-
-
-    oscilador.connect(ganho);
-
-    ganho.connect(audio.destination);
-
-
-    oscilador.start();
-
-    oscilador.stop(
-        audio.currentTime+0.55
-    );
+  marker.setLatLng(route[routeIndex]);
 
 }
 
-
-function musica(){
-
-    if(!tocando){
-
-        audio =
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
+setInterval(animateRoute,1100);
 
 
-        tocando=true;
+/* =========================
+   SURPRESA
+========================= */
 
+function openSurprise(){
 
-        document.getElementById(
-            "musicButton"
-        ).innerText="Ⅱ Pausar música";
+  const lock=document.getElementById("lock");
 
+  lock.classList.add("open");
 
-        tocarNota();
+  lock.innerHTML="🔓";
 
+  document.getElementById("surprise").style.display="block";
 
-        intervalo =
-        setInterval(
-            tocarNota,
-            550
-        );
-
-    }
-
-    else{
-
-        tocando=false;
-
-
-        clearInterval(intervalo);
-
-
-        if(audio){
-
-            audio.close();
-
-            audio=null;
-
-        }
-
-
-        document.getElementById(
-            "musicButton"
-        ).innerText="♫ Ligar música";
-
-    }
-
+  createHeartBurst(35);
 }
-
 
 
 /* =========================
    CORAÇÕES
 ========================= */
 
-function criarCoracao(){
+function createHeartBurst(amount=15){
 
-    let coracao =
-    document.createElement("div");
+  for(let i=0;i<amount;i++){
 
+    const heart=document.createElement("div");
 
-    coracao.className="coracao";
+    heart.className="particle";
 
+    heart.innerHTML=["❤️","💕","💗","💖","✨"][Math.floor(Math.random()*5)];
 
-    coracao.innerText=
-    ["♥","♡","💗","✦"]
-    [Math.floor(Math.random()*4)];
+    heart.style.left=
+      (20+Math.random()*60)+"%";
 
+    heart.style.top=
+      (55+Math.random()*20)+"%";
 
-    coracao.style.left =
-    Math.random()*100+"vw";
+    heart.style.fontSize=
+      (14+Math.random()*22)+"px";
 
+    heart.style.animationDelay=
+      (Math.random()*1)+"s";
 
-    coracao.style.fontSize =
-    (14+Math.random()*25)+"px";
+    document.body.appendChild(heart);
 
-
-    coracao.style.animationDuration =
-    (4+Math.random()*4)+"s";
-
-
-    document.body.appendChild(
-        coracao
-    );
-
-
-    setTimeout(function(){
-
-        coracao.remove();
-
-    },8000);
-
+    setTimeout(()=>{
+      heart.remove();
+    },4500);
+  }
 }
-
-
-
-function coracoes(){
-
-    for(let i=0;i<30;i++){
-
-        setTimeout(
-            criarCoracao,
-            i*100
-        );
-
-    }
-
-}
-
 
 
 /* =========================
-   CORAÇÕES AUTOMÁTICOS
+   MÚSICA ROMÂNTICA
+   GERADA PELO NAVEGADOR
 ========================= */
 
-setInterval(function(){
+let audioContext=null;
+let musicPlaying=false;
+let musicTimer=null;
 
-    if(Math.random()>.45){
+const button=document.getElementById("musicButton");
 
-        criarCoracao();
+const notes=[
+  261.63,
+  329.63,
+  392.00,
+  329.63,
+  293.66,
+  349.23,
+  440.00,
+  392.00,
+  261.63,
+  329.63,
+  392.00,
+  523.25,
+  440.00,
+  392.00,
+  329.63,
+  293.66
+];
 
-    }
+let noteIndex=0;
 
-},1200);
+function playNote(){
+
+  if(!audioContext || !musicPlaying) return;
+
+  const osc=
+    audioContext.createOscillator();
+
+  const gain=
+    audioContext.createGain();
+
+  osc.type="sine";
+
+  osc.frequency.value=
+    notes[noteIndex%notes.length];
+
+  gain.gain.setValueAtTime(
+    0.0001,
+    audioContext.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.07,
+    audioContext.currentTime+0.04
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    audioContext.currentTime+1.2
+  );
+
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+
+  osc.start();
+
+  osc.stop(
+    audioContext.currentTime+1.25
+  );
+
+  noteIndex++;
+
+  musicTimer=setTimeout(
+    playNote,
+    600
+  );
+}
+
+
+function toggleMusic(){
+
+  if(!audioContext){
+
+    audioContext=
+      new (window.AudioContext ||
+      window.webkitAudioContext)();
+  }
+
+  if(audioContext.state==="suspended"){
+    audioContext.resume();
+  }
+
+  musicPlaying=!musicPlaying;
+
+  if(musicPlaying){
+
+    button.innerHTML="❚❚";
+
+    noteIndex=0;
+
+    playNote();
+
+  }else{
+
+    button.innerHTML="♫";
+
+    clearTimeout(musicTimer);
+  }
+}
+
+
+/* =========================
+   CLIQUE NA TELA = CORAÇÕES
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+  if(
+    e.target.tagName==="BUTTON" ||
+    e.target.closest("#map")
+  ) return;
+
+  const heart=document.createElement("div");
+
+  heart.className="particle";
+
+  heart.innerHTML="♥";
+
+  heart.style.left=e.clientX+"px";
+  heart.style.top=e.clientY+"px";
+  heart.style.color="#ff79b5";
+  heart.style.fontSize="20px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },4000);
+
+});
+
+
+/* =========================
+   EFEITO INICIAL
+========================= */
+
+setTimeout(()=>{
+  createHeartBurst(12);
+},3000);
 
 </script>
 
